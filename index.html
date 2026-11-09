@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PBB Cameras 24/7</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;background:#0b1018;color:white;
+  font-family:Arial,sans-serif
+}
+header{
+  background:#151e2b;padding:20px;
+  display:flex;justify-content:space-between;
+  align-items:center;border-bottom:2px solid #c9a44c
+}
+.logo{font-size:23px;font-weight:900;letter-spacing:1px}
+.sub{font-size:11px;color:#9daabd;margin-top:5px}
+.live{color:#ff4545;font-weight:bold;font-size:12px}
+main{max-width:1200px;margin:auto;padding:18px}
+.top{
+  display:flex;justify-content:space-between;
+  align-items:center;margin-bottom:18px
+}
+#clock{color:#d5b66d;font-weight:bold}
+.grid{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:16px
+}
+.camera{
+  background:#151e2b;border:1px solid #354257;
+  border-radius:10px;overflow:hidden
+}
+.camhead{
+  padding:12px;display:flex;
+  justify-content:space-between;align-items:center
+}
+.camtitle{font-size:14px;font-weight:bold}
+.status{font-size:10px;color:#58d68d}
+.screen{
+  background:#000;aspect-ratio:16/9;
+  position:relative
+}
+iframe{width:100%;height:100%;border:0}
+.offline{
+  width:100%;height:100%;display:flex;
+  flex-direction:column;justify-content:center;
+  align-items:center;color:#8995a8;gap:10px
+}
+.offline span{font-size:35px}
+.camfoot{
+  padding:10px 12px;color:#9daabd;font-size:11px
+}
+footer{
+  text-align:center;padding:25px;
+  color:#778397;font-size:11px
+}
+button{
+  background:#c9a44c;color:#10151e;
+  border:0;border-radius:5px;padding:7px 12px;
+  font-weight:bold;cursor:pointer
+}
+@media(max-width:650px){
+  .grid{grid-template-columns:1fr}
+  .logo{font-size:18px}
+  main{padding:12px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="logo">PBB CAMERAS 24/7</div>
+    <div class="sub">HOUSE MONITORING CENTER</div>
+  </div>
+  <div class="live">● LIVE MONITOR</div>
+</header>
+
+<main>
+  <div class="top">
+    <strong>HOUSE CAMERAS</strong>
+    <div id="clock">--:--:--</div>
+  </div>
+
+  <div class="grid">
+
+    <section class="camera">
+      <div class="camhead">
+        <div class="camtitle">CAM 01 — MAIN LIVESTREAM</div>
+        <div class="status">● YOUTUBE</div>
+      </div>
+      <div class="screen">
+        <iframe
+          src="https://www.youtube.com/embed/vyeO-gDXezo"
+          title="PBB Main Livestream"
+          allow="autoplay; encrypted-media; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <div class="camfoot">MAIN HOUSE LIVESTREAM</div>
+    </section>
+
+    <section class="camera">
+      <div class="camhead">
+        <div class="camtitle">CAM 02 — ALL ACCESS</div>
+        <div class="status">● AWAITING FEED</div>
+      </div>
+      <div class="screen">
+        <div class="offline">
+          <span>📹</span>
+          CAMERA FEED UNAVAILABLE
+        </div>
+      </div>
+      <div class="camfoot">ALL ACCESS CAMERA</div>
+    </section>
+
+    <section class="camera">
+      <div class="camhead">
+        <div class="camtitle">CAM 03 — DINING AREA</div>
+        <div class="status">● AWAITING FEED</div>
+      </div>
+      <div class="screen">
+        <div class="offline">
+          <span>📹</span>
+          CAMERA FEED UNAVAILABLE
+        </div>
+      </div>
+      <div class="camfoot">DINING AREA CAMERA</div>
+    </section>
+
+    <section class="camera">
+      <div class="camhead">
+        <div class="camtitle">CAM 04 — EXTERNAL DEN</div>
+        <div class="status">● AWAITING FEED</div>
+      </div>
+      <div class="screen">
+        <div class="offline">
+          <span>📹</span>
+          CAMERA FEED UNAVAILABLE
+        </div>
+      </div>
+      <div class="camfoot">EXTERNAL DEN CAMERA</div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  PBB CAMERAS 24/7 • HOUSE MONITORING
+</footer>
+
+<script>
+function updateClock(){
+  document.getElementById("clock").textContent =
+    new Date().toLocaleTimeString("en-PH",{
+      timeZone:"Asia/Manila",
+      hour12:true
+    }) + " PHT";
+}
+updateClock();
+setInterval(updateClock,1000);
+</script>
+
+</body>
+</html>
