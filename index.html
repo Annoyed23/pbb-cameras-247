@@ -4,164 +4,723 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080D20">
+
 <title>PBB Cameras 24/7</title>
+
 <style>
-*{box-sizing:border-box}
-body{
-  margin:0;background:#0b1018;color:white;
-  font-family:Arial,sans-serif
+:root {
+  --bg: #080D20;
+  --sidebar: #12132D;
+  --panel: #17143B;
+  --purple: #8B5CF6;
+  --blue: #38BDF8;
+  --light: #C4B5FD;
+  --muted: #A5A5CF;
+  --border: #393B75;
 }
-header{
-  background:#151e2b;padding:20px;
-  display:flex;justify-content:space-between;
-  align-items:center;border-bottom:2px solid #c9a44c
+
+* {
+  box-sizing: border-box;
 }
-.logo{font-size:23px;font-weight:900;letter-spacing:1px}
-.sub{font-size:11px;color:#9daabd;margin-top:5px}
-.live{color:#ff4545;font-weight:bold;font-size:12px}
-main{max-width:1200px;margin:auto;padding:18px}
-.top{
-  display:flex;justify-content:space-between;
-  align-items:center;margin-bottom:18px
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
 }
-#clock{color:#d5b66d;font-weight:bold}
-.grid{
-  display:grid;grid-template-columns:repeat(2,1fr);
-  gap:16px
+
+/* HEADER */
+
+header {
+  min-height: 78px;
+  background: linear-gradient(
+    110deg,
+    #17143B,
+    #173C70,
+    #30205E
+  );
+  border-bottom: 1px solid #5965B5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 25px;
+  gap: 15px;
 }
-.camera{
-  background:#151e2b;border:1px solid #354257;
-  border-radius:10px;overflow:hidden
+
+.logo {
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  background: linear-gradient(
+    90deg,
+    #C4B5FD,
+    #38BDF8
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
-.camhead{
-  padding:12px;display:flex;
-  justify-content:space-between;align-items:center
+
+.subtitle {
+  color: #9CA8D8;
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin-top: 5px;
 }
-.camtitle{font-size:14px;font-weight:bold}
-.status{font-size:10px;color:#58d68d}
-.screen{
-  background:#000;aspect-ratio:16/9;
-  position:relative
+
+.header-right {
+  text-align: right;
+  font-size: 12px;
 }
-iframe{width:100%;height:100%;border:0}
-.offline{
-  width:100%;height:100%;display:flex;
-  flex-direction:column;justify-content:center;
-  align-items:center;color:#8995a8;gap:10px
+
+.live-indicator {
+  color: #FF5478;
+  font-weight: bold;
+  margin-bottom: 6px;
 }
-.offline span{font-size:35px}
-.camfoot{
-  padding:10px 12px;color:#9daabd;font-size:11px
+
+#clock {
+  color: var(--blue);
 }
-footer{
-  text-align:center;padding:25px;
-  color:#778397;font-size:11px
+
+/* MAIN LAYOUT */
+
+.layout {
+  display: flex;
+  min-height: calc(100vh - 78px);
 }
-button{
-  background:#c9a44c;color:#10151e;
-  border:0;border-radius:5px;padding:7px 12px;
-  font-weight:bold;cursor:pointer
+
+/* SIDEBAR */
+
+.sidebar {
+  width: 265px;
+  flex-shrink: 0;
+  background: linear-gradient(
+    180deg,
+    #151331,
+    #10172F
+  );
+  border-right: 1px solid var(--border);
+  padding: 23px 15px;
 }
-@media(max-width:650px){
-  .grid{grid-template-columns:1fr}
-  .logo{font-size:18px}
-  main{padding:12px}
+
+.section-title {
+  color: #9F91F9;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin: 0 10px 17px;
+}
+
+.camera-btn {
+  width: 100%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 12px;
+  margin-bottom: 9px;
+  border-radius: 9px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #C4C3E5;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.camera-btn:hover {
+  background: #25234B;
+  border-color: #514A91;
+}
+
+.camera-btn.active {
+  background: linear-gradient(
+    110deg,
+    #7136C9,
+    #176BB9
+  );
+  border-color: #64B5FF;
+  color: white;
+  box-shadow: 0 0 18px #528BFF55;
+}
+
+.cam-icon {
+  font-size: 23px;
+}
+
+.cam-name {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.cam-status {
+  color: #B7B6E0;
+  font-size: 10px;
+  margin-top: 5px;
+}
+
+/* MAIN CONTENT */
+
+.main {
+  flex: 1;
+  min-width: 0;
+  padding: 25px;
+}
+
+.page-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.page-heading h2 {
+  font-size: 19px;
+  margin: 0;
+}
+
+.channel-number {
+  color: var(--blue);
+  font-size: 11px;
+}
+
+/* PLAYER */
+
+.player-card {
+  background: var(--panel);
+  border: 1px solid #514A91;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 35px #0006;
+}
+
+.player-header {
+  background: linear-gradient(
+    100deg,
+    #292052,
+    #172D59
+  );
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.player-title {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.player-label {
+  color: #B5B3E6;
+  font-size: 10px;
+  margin-top: 5px;
+}
+
+.status {
+  background: #273A66;
+  color: #79D1FF;
+  padding: 7px 10px;
+  border-radius: 5px;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.video-screen {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #02040B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-screen iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.offline {
+  text-align: center;
+  color: var(--muted);
+  padding: 20px;
+}
+
+.offline-icon {
+  font-size: 55px;
+  margin-bottom: 12px;
+  color: var(--blue);
+}
+
+.offline h3 {
+  color: white;
+  font-size: 17px;
+}
+
+.player-footer {
+  padding: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.action-btn {
+  background: linear-gradient(
+    100deg,
+    #7136C9,
+    #176BB9
+  );
+  color: white;
+  border: 1px solid #65AFFF;
+  border-radius: 6px;
+  padding: 9px 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.action-btn:hover {
+  filter: brightness(1.2);
+}
+
+/* INFORMATION PANEL */
+
+.info-panel {
+  margin-top: 20px;
+  padding: 19px;
+  background: linear-gradient(
+    110deg,
+    #17143B,
+    #142344
+  );
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.info-panel h3 {
+  color: var(--light);
+  margin: 0 0 10px;
+  font-size: 14px;
+}
+
+.info-panel p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+/* FOOTER */
+
+footer {
+  text-align: center;
+  color: #777DAA;
+  font-size: 10px;
+  padding: 23px;
+  border-top: 1px solid var(--border);
+}
+
+/* MOBILE */
+
+@media(max-width:700px) {
+
+  header {
+    padding: 14px;
+    min-height: 70px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .header-right {
+    font-size: 10px;
+  }
+
+  .layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    padding: 13px;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .camera-list {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+  }
+
+  .camera-btn {
+    min-width: 160px;
+    margin: 0;
+    padding: 12px 9px;
+  }
+
+  .main {
+    padding: 15px 12px;
+  }
+
+  .page-heading h2 {
+    font-size: 16px;
+  }
 }
 </style>
 </head>
+
 <body>
 
 <header>
+
   <div>
     <div class="logo">PBB CAMERAS 24/7</div>
-    <div class="sub">HOUSE MONITORING CENTER</div>
+    <div class="subtitle">THE HOUSE NEVER SLEEPS</div>
   </div>
-  <div class="live">● LIVE MONITOR</div>
+
+  <div class="header-right">
+    <div class="live-indicator">● ON AIR</div>
+    <div id="clock">Loading PHT...</div>
+  </div>
+
 </header>
 
-<main>
-  <div class="top">
-    <strong>HOUSE CAMERAS</strong>
-    <div id="clock">--:--:--</div>
-  </div>
+<div class="layout">
 
-  <div class="grid">
+  <!-- LEFT CAMERA SIDEBAR -->
 
-    <section class="camera">
-      <div class="camhead">
-        <div class="camtitle">CAM 01 — MAIN LIVESTREAM</div>
-        <div class="status">● YOUTUBE</div>
+  <aside class="sidebar">
+
+    <div class="section-title">
+      HOUSE CAMERA MENU
+    </div>
+
+    <div class="camera-list">
+
+      <button class="camera-btn active"
+        onclick="selectCamera(0)">
+
+        <span class="cam-icon">📺</span>
+
+        <span>
+          <div class="cam-name">
+            MAIN LIVESTREAM
+          </div>
+          <div class="cam-status">
+            CAM 01 · YOUTUBE
+          </div>
+        </span>
+
+      </button>
+
+      <button class="camera-btn"
+        onclick="selectCamera(1)">
+
+        <span class="cam-icon">🎥</span>
+
+        <span>
+          <div class="cam-name">
+            ALL ACCESS
+          </div>
+          <div class="cam-status">
+            CAM 02 · AWAITING FEED
+          </div>
+        </span>
+
+      </button>
+
+      <button class="camera-btn"
+        onclick="selectCamera(2)">
+
+        <span class="cam-icon">🍽️</span>
+
+        <span>
+          <div class="cam-name">
+            DINING AREA
+          </div>
+          <div class="cam-status">
+            CAM 03 · AWAITING FEED
+          </div>
+        </span>
+
+      </button>
+
+      <button class="camera-btn"
+        onclick="selectCamera(3)">
+
+        <span class="cam-icon">🏠</span>
+
+        <span>
+          <div class="cam-name">
+            EXTERNAL DEN
+          </div>
+          <div class="cam-status">
+            CAM 04 · AWAITING FEED
+          </div>
+        </span>
+
+      </button>
+
+    </div>
+
+  </aside>
+
+  <!-- MAIN VIDEO SCREEN -->
+
+  <main class="main">
+
+    <div class="page-heading">
+
+      <h2 id="pageTitle">
+        MAIN LIVESTREAM
+      </h2>
+
+      <span class="channel-number" id="channelNumber">
+        CHANNEL 01
+      </span>
+
+    </div>
+
+    <section class="player-card">
+
+      <div class="player-header">
+
+        <div>
+          <div class="player-title" id="playerTitle">
+            CAM 01 — MAIN LIVESTREAM
+          </div>
+
+          <div class="player-label" id="playerLabel">
+            PRIMARY HOUSE CHANNEL
+          </div>
+        </div>
+
+        <div class="status" id="playerStatus">
+          ● YOUTUBE
+        </div>
+
       </div>
-      <div class="screen">
+
+      <div class="video-screen" id="videoScreen">
+
         <iframe
           src="https://www.youtube.com/embed/vyeO-gDXezo"
           title="PBB Main Livestream"
           allow="autoplay; encrypted-media; picture-in-picture"
           allowfullscreen>
         </iframe>
+
       </div>
-      <div class="camfoot">MAIN HOUSE LIVESTREAM</div>
+
+      <div class="player-footer">
+
+        <span id="footerName">
+          MAIN HOUSE BROADCAST
+        </span>
+
+        <button class="action-btn"
+          onclick="fullscreenPlayer()">
+          ⛶ FULLSCREEN
+        </button>
+
+      </div>
+
     </section>
 
-    <section class="camera">
-      <div class="camhead">
-        <div class="camtitle">CAM 02 — ALL ACCESS</div>
-        <div class="status">● AWAITING FEED</div>
-      </div>
-      <div class="screen">
-        <div class="offline">
-          <span>📹</span>
-          CAMERA FEED UNAVAILABLE
-        </div>
-      </div>
-      <div class="camfoot">ALL ACCESS CAMERA</div>
+    <section class="info-panel">
+
+      <h3>✦ CAMERA INFORMATION</h3>
+
+      <p id="cameraDescription">
+        Main livestream channel. Watch the available
+        YouTube broadcast directly inside the PBB
+        Cameras 24/7 player.
+      </p>
+
     </section>
 
-    <section class="camera">
-      <div class="camhead">
-        <div class="camtitle">CAM 03 — DINING AREA</div>
-        <div class="status">● AWAITING FEED</div>
-      </div>
-      <div class="screen">
-        <div class="offline">
-          <span>📹</span>
-          CAMERA FEED UNAVAILABLE
-        </div>
-      </div>
-      <div class="camfoot">DINING AREA CAMERA</div>
-    </section>
+  </main>
 
-    <section class="camera">
-      <div class="camhead">
-        <div class="camtitle">CAM 04 — EXTERNAL DEN</div>
-        <div class="status">● AWAITING FEED</div>
-      </div>
-      <div class="screen">
-        <div class="offline">
-          <span>📹</span>
-          CAMERA FEED UNAVAILABLE
-        </div>
-      </div>
-      <div class="camfoot">EXTERNAL DEN CAMERA</div>
-    </section>
-
-  </div>
-</main>
+</div>
 
 <footer>
-  PBB CAMERAS 24/7 • HOUSE MONITORING
+  PBB CAMERAS 24/7 · INDEPENDENT FAN PROJECT
+  <br><br>
+  Not affiliated with or endorsed by the official PBB broadcaster.
 </footer>
 
 <script>
-function updateClock(){
-  document.getElementById("clock").textContent =
-    new Date().toLocaleTimeString("en-PH",{
-      timeZone:"Asia/Manila",
-      hour12:true
-    }) + " PHT";
+
+const cameras = [
+
+  {
+    name: "MAIN LIVESTREAM",
+    label: "CAM 01 — MAIN LIVESTREAM",
+    status: "● YOUTUBE",
+    footer: "MAIN HOUSE BROADCAST",
+    description:
+      "Main livestream channel. Watch the available YouTube broadcast directly inside the PBB Cameras 24/7 player.",
+    url:
+      "https://www.youtube.com/embed/vyeO-gDXezo"
+  },
+
+  {
+    name: "ALL ACCESS",
+    label: "CAM 02 — ALL ACCESS",
+    status: "AWAITING FEED",
+    footer: "ALL ACCESS CHANNEL",
+    description:
+      "The All Access camera has not been connected to an authorized video source.",
+    url: null
+  },
+
+  {
+    name: "DINING AREA",
+    label: "CAM 03 — DINING AREA",
+    status: "AWAITING FEED",
+    footer: "DINING AREA CHANNEL",
+    description:
+      "The Dining Area camera has not been connected to an authorized video source.",
+    url: null
+  },
+
+  {
+    name: "EXTERNAL DEN",
+    label: "CAM 04 — EXTERNAL DEN",
+    status: "AWAITING FEED",
+    footer: "EXTERNAL DEN CHANNEL",
+    description:
+      "The External Den camera has not been connected to an authorized video source.",
+    url: null
+  }
+
+];
+
+function selectCamera(index) {
+
+  const cam = cameras[index];
+
+  // Update active sidebar button
+
+  document.querySelectorAll(".camera-btn")
+    .forEach((button, i) => {
+      button.classList.toggle(
+        "active",
+        i === index
+      );
+    });
+
+  // Update page information
+
+  document.getElementById("pageTitle")
+    .textContent = cam.name;
+
+  document.getElementById("channelNumber")
+    .textContent =
+      "CHANNEL " +
+      String(index + 1).padStart(2, "0");
+
+  document.getElementById("playerTitle")
+    .textContent = cam.label;
+
+  document.getElementById("playerLabel")
+    .textContent =
+      index === 0
+        ? "PRIMARY HOUSE CHANNEL"
+        : "HOUSE CAMERA CHANNEL";
+
+  document.getElementById("playerStatus")
+    .textContent = cam.status;
+
+  document.getElementById("footerName")
+    .textContent = cam.footer;
+
+  document.getElementById("cameraDescription")
+    .textContent = cam.description;
+
+  // Switch camera player
+
+  const screen =
+    document.getElementById("videoScreen");
+
+  if (cam.url) {
+
+    screen.innerHTML = `
+      <iframe
+        src="${cam.url}"
+        title="${cam.name}"
+        allow="autoplay; encrypted-media; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    `;
+
+  } else {
+
+    screen.innerHTML = `
+      <div class="offline">
+        <div class="offline-icon">📹</div>
+        <h3>CAMERA FEED UNAVAILABLE</h3>
+        <div>CAM ${String(index + 1).padStart(2,"0")}</div>
+        <p>Waiting for an authorized camera stream.</p>
+      </div>
+    `;
+
+  }
+
 }
+
+// Fullscreen player
+
+function fullscreenPlayer() {
+
+  const player =
+    document.querySelector(".player-card");
+
+  if (!document.fullscreenElement) {
+
+    player.requestFullscreen?.();
+
+  } else {
+
+    document.exitFullscreen?.();
+
+  }
+
+}
+
+// Philippine clock
+
+function updateClock() {
+
+  const time = new Date().toLocaleString(
+    "en-PH",
+    {
+      timeZone: "Asia/Manila",
+      hour12: true,
+      dateStyle: "medium",
+      timeStyle: "medium"
+    }
+  );
+
+  document.getElementById("clock")
+    .textContent = time + " PHT";
+
+}
+
 updateClock();
-setInterval(updateClock,1000);
+
+setInterval(updateClock, 1000);
+
 </script>
 
 </body>
