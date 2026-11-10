@@ -178,259 +178,227 @@
     .player-top {
       min-height: 75px; display: flex; justify-content: space-between;
       align-items: center; gap: 14px; padding: 17px 20px;
-      border-bottom: 1px solid var(--line);
-      background: linear-gradient(105deg, rgba(124,58,237,.13), rgba(14,165,233,.09));
     }
-    .player-heading { min-width: 0; }
-    .player-title { font: 700 14px "Space Grotesk", sans-serif; letter-spacing: .015em; }
-    .player-subtitle { margin-top: 5px; color: #8e95bd; font-size: 10px; }
+    .player-title { font: 700 13px "Space Grotesk", sans-serif; letter-spacing: .08em; }
+    .player-subtitle { margin-top: 5px; color: var(--muted); font-size: 9px; letter-spacing: .13em; }
     .source-tag {
-      flex: 0 0 auto; padding: 7px 10px; border: 1px solid rgba(85,199,255,.2);
-      border-radius: 7px; color: #8edcff; background: rgba(14,165,233,.08);
-      font-size: 9px; font-weight: 800; letter-spacing: .1em;
+      padding: 7px 10px; border: 1px solid rgba(92,224,177,.2);
+      border-radius: 999px; color: var(--green);
+      background: rgba(92,224,177,.07); font-size: 9px; font-weight: 800;
+      letter-spacing: .1em; white-space: nowrap;
     }
     .video-screen {
-      width: 100%; aspect-ratio: 16/9; min-height: 220px;
-      display: grid; place-items: center; overflow: hidden;
-      background:
-        radial-gradient(ellipse at center, rgba(44,55,111,.23), transparent 58%),
-        #050714;
+      position: relative; width: 100%; aspect-ratio: 16 / 9;
+      background: #050711; overflow: hidden;
     }
-    .video-screen iframe { display: block; width: 100%; height: 100%; border: 0; }
-    .offline { max-width: 340px; padding: 30px 20px; text-align: center; }
-    .offline-icon {
-      width: 66px; height: 66px; display: grid; place-items: center;
-      margin: 0 auto 16px; border: 1px solid rgba(167,139,250,.24);
-      border-radius: 20px; color: #bba8ff; font-size: 27px;
-      background: linear-gradient(145deg, rgba(124,58,237,.2), rgba(14,165,233,.12));
+    .video-screen iframe { width: 100%; height: 100%; border: 0; position: absolute; inset: 0; }
+    .offline {
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center;
+      background: radial-gradient(circle at center, rgba(75,64,145,.2), transparent 55%), #080a19;
+      padding: 20px;
     }
-    .offline h3 { margin: 0; font: 700 15px "Space Grotesk", sans-serif; }
-    .offline p { margin: 9px 0 0; color: #8990b5; font-size: 11px; line-height: 1.7; }
+    .offline-icon { font-size: 36px; color: var(--purple); }
+    .offline h3 { margin: 12px 0 7px; font: 700 13px "Space Grotesk", sans-serif; letter-spacing: .1em; }
+    .offline p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.7; }
     .player-bottom {
-      min-height: 58px; display: flex; justify-content: space-between;
-      align-items: center; gap: 12px; padding: 12px 18px;
-      border-top: 1px solid var(--line); color: #9299bd; font-size: 10px;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 12px; padding: 13px 17px;
     }
-    .broadcast-name { display: flex; align-items: center; gap: 8px; }
-    .broadcast-name span { color: #6fd7ff; font-size: 13px; }
+    .broadcast-name { display: flex; gap: 8px; align-items: center; color: #a8afd5; font-size: 9px; font-weight: 800; letter-spacing: .12em; }
+    .broadcast-name span { color: var(--green); font-size: 14px; }
     .fullscreen-btn {
-      display: inline-flex; align-items: center; gap: 7px;
-      padding: 9px 12px; border: 1px solid rgba(151,139,255,.35);
-      border-radius: 8px; color: #e6e2ff; background: rgba(124,58,237,.15);
-      font-size: 9px; font-weight: 800; letter-spacing: .08em;
-      cursor: pointer; transition: .2s;
+      border: 1px solid var(--line); border-radius: 8px;
+      padding: 8px 10px; color: #c5c8e8; background: #171a38;
+      font-size: 9px; font-weight: 800; cursor: pointer;
     }
-    .fullscreen-btn:hover { background: rgba(124,58,237,.3); border-color: #9b83ff; }
-
+    .fullscreen-btn:hover { background: #25294f; }
     .detail-card {
-      display: grid; grid-template-columns: 1fr auto; align-items: center;
-      gap: 18px; margin-top: 15px; padding: 17px 19px;
-      border-radius: 15px; box-shadow: none;
+      margin-top: 17px; padding: 20px; border-radius: 16px;
+      display: flex; justify-content: space-between; align-items: center; gap: 15px;
     }
-    .detail-label {
-      color: #9d91e8; font-size: 9px; font-weight: 800;
-      letter-spacing: .16em; text-transform: uppercase;
-    }
-    .detail-card h2 { margin: 7px 0 5px; font: 700 13px "Space Grotesk", sans-serif; }
-    .detail-card p { max-width: 680px; margin: 0; color: #9299bd; font-size: 11px; line-height: 1.65; }
-    .detail-mark {
-      width: 43px; height: 43px; display: grid; place-items: center;
-      border-radius: 13px; color: #9bdfff; font-size: 19px;
-      background: linear-gradient(145deg, rgba(124,58,237,.22), rgba(14,165,233,.18));
-      border: 1px solid var(--line);
-    }
-    footer {
-      padding: 25px 10px 6px; color: #687093; text-align: center;
-      font-size: 9px; line-height: 1.8; letter-spacing: .025em;
-    }
-    footer strong { color: #9298bd; font-weight: 700; }
+    .detail-label { color: var(--blue); font-size: 9px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+    .detail-card h2 { margin: 7px 0 5px; font: 700 16px "Space Grotesk", sans-serif; }
+    .detail-card p { margin: 0; max-width: 600px; color: var(--muted); font-size: 11px; line-height: 1.7; }
+    .detail-mark { color: #8f82ed; font-size: 35px; }
 
-
-    /* VIEWER CHAT */
-    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
     .chat-card {
-      min-width:0; min-height:620px; height:100%;
-      display:flex; flex-direction:column; overflow:hidden;
-      border:1px solid rgba(166,157,255,.2); border-radius:18px;
-      background:linear-gradient(155deg,rgba(27,25,64,.98),rgba(12,19,44,.98));
-      box-shadow:0 24px 70px rgba(0,0,0,.32), inset 0 1px 0 rgba(255,255,255,.035);
+      min-width: 0; overflow: hidden; border: 1px solid var(--line);
+      border-radius: 18px; background: linear-gradient(155deg, rgba(21,24,53,.97), rgba(12,15,34,.98));
+      box-shadow: var(--shadow);
     }
     .chat-header {
-      min-height:75px; padding:15px 16px; display:flex; align-items:center;
-      justify-content:space-between; gap:9px; border-bottom:1px solid var(--line);
-      background:linear-gradient(105deg,rgba(124,58,237,.2),rgba(14,165,233,.13));
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 10px; padding: 17px 15px; border-bottom: 1px solid var(--line);
     }
-    .chat-heading { display:flex; align-items:center; gap:10px; min-width:0; }
+    .chat-heading { display: flex; align-items: center; gap: 10px; }
     .chat-orb {
-      width:38px;height:38px;display:grid;place-items:center;flex:0 0 auto;
-      border-radius:12px;color:#fff;font-size:18px;
-      background:linear-gradient(145deg,#9b70f4,#3b8fe0);
-      box-shadow:0 7px 22px rgba(112,91,230,.28);
+      width: 34px; height: 34px; display: grid; place-items: center;
+      border-radius: 11px; color: white;
+      background: linear-gradient(145deg, #a78bfa, #4778db);
     }
-    .chat-title { font:700 12px "Space Grotesk",sans-serif; letter-spacing:.1em; }
-    .chat-subtitle { margin-top:5px;color:#969bc3;font-size:8px;letter-spacing:.15em; }
-    .chat-live { display:flex;align-items:center;gap:6px;white-space:nowrap;color:#8fe3ff;font-size:8px;font-weight:800;letter-spacing:.08em; }
-    .chat-live i,.online-pulse { width:6px;height:6px;border-radius:50%;background:#5ce0b1;box-shadow:0 0 9px #5ce0b1; }
-    .chat-welcome { padding:23px 17px 18px; }
-    .welcome-kicker { color:#8edcff;font-size:8px;font-weight:800;letter-spacing:.17em; }
-    .chat-welcome h2 { margin:9px 0 6px;font:700 19px "Space Grotesk",sans-serif;letter-spacing:-.035em; }
-    .chat-welcome p { margin:0 0 17px;color:#9299bd;font-size:10px;line-height:1.6; }
-    .username-form { display:grid;gap:8px; }
+    .chat-title { font: 700 12px "Space Grotesk", sans-serif; letter-spacing: .12em; }
+    .chat-subtitle { margin-top: 4px; color: var(--muted); font-size: 8px; letter-spacing: .13em; }
+    .chat-live { display: flex; align-items: center; gap: 6px; color: var(--green); font-size: 8px; font-weight: 800; letter-spacing: .1em; white-space: nowrap; }
+    .chat-live i { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 9px var(--green); }
+    .chat-welcome { padding: 24px 17px 20px; }
+    .welcome-kicker { color: var(--blue); font-size: 8px; font-weight: 800; letter-spacing: .17em; }
+    .chat-welcome h2 { margin: 9px 0 6px; font: 700 19px "Space Grotesk", sans-serif; }
+    .chat-welcome p { margin: 0 0 17px; color: var(--muted); font-size: 10px; line-height: 1.6; }
+    .username-form { display: grid; gap: 9px; }
     .username-form input,.chat-compose input {
-      width:100%;min-width:0;outline:none;color:#f6f5ff;
-      border:1px solid rgba(166,157,255,.22);border-radius:9px;
-      background:rgba(7,10,27,.7);transition:border-color .2s,box-shadow .2s;
+      min-width: 0; width: 100%; padding: 12px 11px;
+      border: 1px solid rgba(166,157,255,.2); border-radius: 9px;
+      outline: none; color: white; background: #0b0e22;
+      font: 500 11px "DM Sans", sans-serif;
     }
-    .username-form input { padding:12px 11px;font-size:11px; }
     .username-form input:focus,.chat-compose input:focus { border-color:#7c9dff;box-shadow:0 0 0 3px rgba(99,102,241,.13); }
     .username-form input::placeholder,.chat-compose input::placeholder { color:#72799f; }
     .username-form button {
-      display:flex;justify-content:center;align-items:center;gap:10px;
-      padding:11px;border:1px solid rgba(173,157,255,.38);border-radius:9px;
-      color:#fff;background:linear-gradient(100deg,#7845d4,#247fc0);
-      font-size:9px;font-weight:800;letter-spacing:.12em;cursor:pointer;
-      box-shadow:0 7px 20px rgba(75,91,199,.2);
+      padding: 12px; border: 0; border-radius: 9px;
+      color: white; background: linear-gradient(100deg,#7752d8,#397bd7);
+      font-size: 9px; font-weight: 800; letter-spacing: .12em; cursor: pointer;
     }
-    .username-form button:hover { filter:brightness(1.13); }
-    .chat-note { margin-top:10px;color:#70789f;font-size:8px;line-height:1.5; }
-    .chat-room { min-height:0;flex:1;display:flex;flex-direction:column; }
+    .username-form button:hover { filter: brightness(1.12); }
+    .chat-note { margin-top: 10px; color: #737a9f; font-size: 8px; text-align: center; }
     .chat-room-bar {
-      min-height:43px;padding:0 13px;display:flex;align-items:center;
-      justify-content:space-between;gap:8px;border-bottom:1px solid var(--line);
-      color:#b9bee0;font-size:8px;letter-spacing:.08em;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 8px; padding: 11px 13px; border-bottom: 1px solid var(--line);
+      color: #aeb5dc; font-size: 8px; letter-spacing: .08em;
     }
-    .chat-room-bar > div { display:flex;align-items:center;gap:8px; }
-    .change-user { border:0;background:none;color:#8fcfff;font-size:8px;font-weight:800;cursor:pointer; }
+    .chat-room-bar > div { display:flex;align-items:center;gap:7px; }
+    .online-pulse { width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green); }
+    .change-user { border:1px solid var(--line);border-radius:7px;padding:6px 8px;color:#aeb5dc;background:#171a38;font-size:8px;font-weight:800;cursor:pointer; }
     .chat-messages {
-      flex:1;min-height:190px;max-height:430px;overflow-y:auto;
-      display:flex;flex-direction:column;gap:10px;padding:14px 12px;
-      scrollbar-width:thin;scrollbar-color:#514b8c transparent;
+      height: 370px; overflow-y: auto; display: flex; flex-direction: column;
+      gap: 12px; padding: 15px 12px; scrollbar-width: thin;
+      scrollbar-color: #454a78 transparent;
     }
-    .chat-empty { margin:auto;display:flex;flex-direction:column;align-items:center;gap:7px;color:#8289ae;text-align:center; }
-    .chat-empty span { color:#a994ff;font-size:25px; }
-    .chat-empty strong { color:#c6c7e4;font:600 11px "Space Grotesk",sans-serif; }
+    .chat-empty { min-height: 100%; display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#777fa7;gap:7px; }
+    .chat-empty span { color:#9d8cf5;font-size:24px; }
+    .chat-empty strong { color:#c7c9e6;font-size:10px; }
     .chat-empty small { font-size:9px; }
-    .message { max-width:94%;align-self:flex-start; }
+    .message { max-width:94%; align-self:flex-start; }
     .message.mine { align-self:flex-end; }
-    .message-meta { display:flex;align-items:center;gap:7px;margin:0 4px 5px;color:#8d94b8;font-size:8px; }
+    .message-meta { display:flex;align-items:center;gap:8px;margin:0 4px 5px;color:#7e86ad;font-size:8px; }
     .message.mine .message-meta { justify-content:flex-end; }
-    .message-user { color:#bdaaff;font-weight:800; }
-    .message.mine .message-user { color:#83d9ff; }
+    .message-user { color:#b7a8ff;font-weight:800; }
     .message-bubble {
-      padding:9px 11px;border:1px solid rgba(160,151,255,.13);
-      border-radius:4px 12px 12px 12px;
-      color:#e9eaff;background:linear-gradient(130deg,rgba(107,72,180,.28),rgba(46,81,145,.25));
-      font-size:10px;line-height:1.55;overflow-wrap:anywhere;white-space:pre-wrap;
+      padding: 9px 11px; border:1px solid rgba(166,157,255,.12);
+      border-radius: 4px 12px 12px 12px; color:#e7e8fa;
+      background:#1a1e3d; font-size:10px;line-height:1.55;
+      overflow-wrap:anywhere; white-space:pre-wrap;
     }
     .message.mine .message-bubble {
-      border-color:rgba(86,186,255,.2);border-radius:12px 4px 12px 12px;
-      background:linear-gradient(130deg,rgba(41,111,170,.32),rgba(94,66,171,.3));
+      border-color:rgba(104,153,255,.22);border-radius:12px 4px 12px 12px;
+      background:linear-gradient(120deg,rgba(100,76,190,.32),rgba(43,100,165,.28));
     }
     .chat-compose-wrap { padding:11px 11px 12px;border-top:1px solid var(--line);background:rgba(7,10,27,.34); }
     .chat-compose { display:flex;align-items:center;gap:7px; }
     .chat-compose input { padding:11px 10px;font-size:10px; }
     .chat-compose button {
-      width:37px;height:37px;flex:0 0 auto;border:0;border-radius:10px;
-      color:white;background:linear-gradient(145deg,#9866ec,#278bd0);
-      font-size:16px;cursor:pointer;box-shadow:0 5px 15px rgba(77,94,205,.25);
+      flex:0 0 38px;width:38px;height:38px;border:0;border-radius:9px;
+      color:white;background:linear-gradient(145deg,#8d67eb,#397bd7);
+      font-size:16px;cursor:pointer;
     }
     .chat-compose button:disabled { opacity:.45;cursor:not-allowed; }
-    .compose-foot { display:flex;justify-content:space-between;gap:8px;margin-top:8px;color:#70789f;font-size:7px;letter-spacing:.08em; }
+    .compose-foot { display:flex;justify-content:space-between;gap:8px;margin-top:8px;color:#747c9f;font-size:7px;font-weight:800;letter-spacing:.07em; }
     .chat-warning {
-      margin-bottom:9px;padding:9px 10px;border:1px solid rgba(255,104,146,.35);
-      border-radius:8px;color:#ffc0d2;background:rgba(190,48,102,.15);
-      font-size:9px;font-weight:800;line-height:1.5;
+      margin-bottom:9px;padding:9px 10px;border:1px solid rgba(255,126,151,.25);
+      border-radius:8px;color:#ff9aaf;background:rgba(255,75,125,.08);
+      font-size:9px;line-height:1.5;
     }
     .chat-warning span { margin-right:5px; }
     .chat-config {
-      display:flex;align-items:flex-start;gap:10px;margin:0 12px 13px;padding:11px;
-      border:1px solid rgba(85,199,255,.16);border-radius:10px;background:rgba(24,54,91,.22);
+      display:flex;align-items:flex-start;gap:10px;padding:13px 14px;
+      border-top:1px solid var(--line);color:#aeb5dc;background:rgba(7,10,27,.35);
     }
+    .chat-config > span { color:#a78bfa;font-size:17px; }
+    .chat-config strong { display:block;font-size:8px;letter-spacing:.12em; }
+    .chat-config small { display:block;margin-top:4px;color:#7e86ad;font-size:9px;line-height:1.5; }
     .chat-config[hidden],.chat-room[hidden],.chat-warning[hidden] { display:none; }
-    .chat-config > span { color:#7dd9ff;font-size:17px; }
-    .chat-config strong { display:block;color:#a7c8ee;font-size:8px;letter-spacing:.1em; }
-    .chat-config small { display:block;margin-top:5px;color:#7f8bad;font-size:8px;line-height:1.5; }
-    @media (max-width:1250px) and (min-width:851px) {
-      .dashboard { grid-template-columns:220px minmax(0,1fr); }
-      .chat-card { grid-column:2;min-height:440px; }
+
+    footer {
+      margin-top: 27px; padding: 18px 4px;
+      border-top: 1px solid var(--line);
+      color: #6f769a; text-align: center; font-size: 9px; line-height: 1.8;
     }
-    @media (max-width:850px) {
-      .chat-card { grid-column:1;min-height:480px; }
-      .chat-messages { max-height:360px; }
+    footer strong { color: #aeb5dc; letter-spacing: .1em; }
+
+    .sr-only {
+      position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+      overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
     }
 
-    @media (max-width: 850px) {
-      .dashboard { grid-template-columns: 1fr; }
-      .sidebar { padding: 14px; }
-      .camera-list { display: flex; overflow-x: auto; gap: 8px; padding-bottom: 3px; scrollbar-width: thin; }
-      .camera-btn { min-width: 190px; flex: 0 0 auto; }
-      .side-heading { padding-bottom: 11px; }
+    @media (max-width: 1100px) {
+      .dashboard { grid-template-columns: 190px minmax(0,1fr); }
+      .chat-card { grid-column: 1 / -1; }
+      .chat-messages { height: 300px; }
     }
-    @media (max-width: 560px) {
-      .topbar { min-height: 70px; padding: 12px 14px; gap: 10px; }
-      .brand-mark { width: 38px; height: 38px; border-radius: 12px; }
-      .brand-name { font-size: 13px; }
-      .brand-tag { font-size: 8px; letter-spacing: .14em; }
-      .topbar-right { gap: 9px; flex-direction: column; align-items: flex-end; }
-      .live-pill { padding: 6px 9px; font-size: 8px; }
-      #clock { font-size: 9px; }
-      .shell { padding: 25px 12px 18px; }
-      .intro { align-items: flex-start; margin-bottom: 18px; }
-      .intro-copy { max-width: 245px; font-size: 11px; line-height: 1.5; }
-      .channel-count { padding: 8px 9px; font-size: 9px; }
-      .channel-count strong { font-size: 12px; }
-      .sidebar { border-radius: 15px; }
-      .camera-btn { min-width: 168px; min-height: 62px; padding: 9px; }
-      .cam-icon { width: 34px; height: 34px; }
-      .player-card { border-radius: 15px; }
-      .player-top { min-height: 67px; padding: 13px 14px; }
-      .player-title { font-size: 12px; }
-      .player-subtitle { font-size: 9px; }
-      .source-tag { padding: 6px 7px; font-size: 8px; }
-      .video-screen { min-height: 190px; }
-      .player-bottom { padding: 11px 12px; font-size: 9px; }
-      .fullscreen-btn { padding: 8px 9px; font-size: 8px; }
-      .detail-card { padding: 14px; gap: 10px; }
-      .detail-card p { font-size: 10px; }
-      .detail-mark { width: 37px; height: 37px; }
+    @media (max-width: 680px) {
+      .topbar { min-height:68px;padding:12px 15px; }
+      .brand-mark { width:37px;height:37px;border-radius:12px; }
+      .brand-name { font-size:13px; }
+      .brand-tag { font-size:7px; }
+      .topbar-right { gap:8px; }
+      .live-pill { padding:7px 8px;font-size:8px; }
+      #clock { display:none; }
+      .shell { padding:24px 12px 18px; }
+      .intro { align-items:flex-start;flex-direction:column;gap:12px; }
+      h1 { font-size:27px; }
+      .dashboard { grid-template-columns:1fr;gap:13px; }
+      .sidebar { padding:13px 10px; }
+      .camera-list { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .camera-btn { min-height:61px;padding:8px;gap:8px; }
+      .cam-icon { width:32px;height:32px;font-size:15px; }
+      .cam-name { font-size:9px; }
+      .cam-status { font-size:7px; }
+      .player-top { min-height:65px;padding:13px; }
+      .player-title { font-size:11px; }
+      .player-bottom { padding:11px 12px; }
+      .detail-card { padding:15px; }
+      .chat-messages { height:330px; }
+      .chat-card { grid-column:auto; }
     }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    @media (max-width: 370px) {
+      .brand-name { font-size:11px; }
+      .live-pill { font-size:7px; }
+      .camera-list { grid-template-columns:1fr; }
     }
   </style>
 </head>
 <body>
   <header class="topbar">
     <div class="brand">
-      <div class="brand-mark" aria-hidden="true">◈</div>
+      <div class="brand-mark">✦</div>
       <div>
-        <div class="brand-name"><span>PBB CAMERAS</span> 24/7</div>
+        <div class="brand-name">PBB <span>CAMERAS 24/7</span></div>
         <div class="brand-tag">THE HOUSE NEVER SLEEPS</div>
       </div>
     </div>
     <div class="topbar-right">
-      <div class="live-pill"><span class="live-dot"></span> ON AIR</div>
-      <div id="clock">Loading Philippine time…</div>
+      <div class="live-pill"><i class="live-dot"></i> LIVE EXPERIENCE</div>
+      <div id="clock">Loading time...</div>
     </div>
   </header>
 
   <main class="shell">
     <section class="intro">
       <div>
-        <div class="eyebrow">House surveillance dashboard</div>
-        <h1>Live Camera Access</h1>
-        <p class="intro-copy">Choose a channel and watch the available house broadcast.</p>
+        <div class="eyebrow">INSIDE THE HOUSE</div>
+        <h1>Every angle. Every moment.</h1>
+        <p class="intro-copy">Your viewer dashboard for the PBB house.</p>
       </div>
-      <div class="channel-count"><strong>04</strong> CHANNELS</div>
+      <div class="channel-count"><strong>04</strong> CAMERA CHANNELS</div>
     </section>
 
     <div class="dashboard">
       <aside class="sidebar">
-        <div class="side-heading"><span>Camera channels</span><span>01 — 04</span></div>
+        <div class="side-heading"><span>CAMERA CHANNELS</span><span>04 FEEDS</span></div>
         <nav class="camera-list" aria-label="Camera channels">
           <button class="camera-btn active" type="button" aria-pressed="true" onclick="selectCamera(0)">
             <span class="cam-icon">📺</span>
-            <span class="cam-copy"><span class="cam-name">MAIN LIVESTREAM</span><span class="cam-status"><i class="mini-dot"></i> CAM 01 · YOUTUBE</span></span>
+            <span class="cam-copy"><span class="cam-name">MAIN LIVESTREAM</span><span class="cam-status"><i class="mini-dot"></i> CAM 01 · LIVE</span></span>
             <span class="chevron">›</span>
           </button>
           <button class="camera-btn" type="button" aria-pressed="false" onclick="selectCamera(1)">
@@ -506,7 +474,7 @@
               placeholder="Type your user..." required>
             <button type="submit">ENTER CHAT <span>→</span></button>
           </form>
-          <div class="chat-note">3–20 characters · Letters, numbers and underscores · No profanity or staff names</div>
+          <div class="chat-note">3–20 characters · Letters, numbers and underscores</div>
         </div>
         <div class="chat-room" id="chatRoom" hidden>
           <div class="chat-room-bar">
@@ -522,14 +490,17 @@
           </div>
           <div class="chat-compose-wrap">
             <div class="chat-warning" id="chatWarning" role="alert" hidden>
-              <span>⚠</span> PST BAWAL YAN! Please keep the chat respectful.
+              <span>⚠</span> Please keep the chat respectful.
             </div>
             <form id="chatForm" class="chat-compose">
               <label class="sr-only" for="messageInput">Write a message</label>
               <input id="messageInput" maxlength="400" placeholder="Say something..." autocomplete="off" required>
               <button type="submit" aria-label="Send message">➤</button>
             </form>
-            <div class="compose-foot"><span id="cooldownStatus">5-second send cooldown · Chat resets hourly</span><span id="charCount">0/400</span></div>
+            <div class="compose-foot">
+              <span id="cooldownStatus">5-second send cooldown · Chat resets hourly</span>
+              <span id="charCount">0/400</span>
+            </div>
           </div>
         </div>
         <div class="chat-config" id="chatConfigNotice">
@@ -634,9 +605,7 @@
       }
     }
 
-
-    // Shared viewer chat configuration.
-    // Paste your Supabase Project URL and anon/publishable key here.
+    // Supabase shared chat configuration.
     const SUPABASE_URL = "https://ttmhxbjycblppbzsadyp.supabase.co";
     const SUPABASE_ANON_KEY = "sb_publishable_jn2f5CS9VbiTwTcYkeZd2g_mpaT2IJF";
     const CHAT_TABLE = "pbb_chat_messages";
@@ -651,100 +620,181 @@
     const chatMessages = document.getElementById("chatMessages");
     const chatWarning = document.getElementById("chatWarning");
     const charCount = document.getElementById("charCount");
+
     let chatClient = null;
     let currentUsername = localStorage.getItem("pbbChatUsername") || "";
     let warningTimer = null;
-    const MESSAGE_COOLDOWN_MS = 5000;
     let nextMessageAt = 0;
     let cooldownInterval = null;
+    let chatRefreshInterval = null;
+    let chatChannel = null;
 
-    function showChatWarning(message = "PST BAWAL YAN! Please keep the chat respectful.") {
+    const MESSAGE_COOLDOWN_MS = 5000;
+
+    function showChatWarning(message = "Please keep the chat respectful.") {
       chatWarning.textContent = "⚠ " + message;
       chatWarning.hidden = false;
       clearTimeout(warningTimer);
-      warningTimer = setTimeout(() => { chatWarning.hidden = true; }, 4000);
+      warningTimer = setTimeout(() => {
+        chatWarning.hidden = true;
+      }, 4000);
     }
 
-    // Client-side moderation is for instant feedback. The SQL migration supplied
-    // with this update repeats the checks on the database so browser edits cannot bypass them.
+    /*
+      IMPORTANT FILTER FIX:
+      - Uses word boundaries, not substring matching.
+      - "hello", "stuff", "class", "assistant" are not blocked just because
+        they contain letters that appear in another word.
+      - Still recognizes common disguised spellings and punctuation between letters.
+      - This list is not an exhaustive dictionary of every language.
+    */
     const blockedTerms = [
-      // Filipino / Tagalog and common variants
-      "putangina", "putanginamo", "putangina mo", "tangina", "tangina mo", "tanginamo",
-      "pota", "potangina", "potanginamo", "punyeta", "punyeta", "leche", " gago ",
-      "gago", "gaga", " ulol ", "bobo", "tanga", "tarantado", " hindot ", "hindot",
-      "kantot", "kantutan", "kantutin", "kantotan", "tite", "titi", "burat",
-      "pekpek", "puke", "puki", "iyot", "iyutan", "jakol", "ungas", "letse",
+      // Filipino / Tagalog
+      "putangina", "putanginamo", "tangina", "tanginamo",
+      "potangina", "potanginamo", "pota", "punyeta",
+      "gago", "gaga", "ulol", "bobo", "tanga", "tarantado",
+      "hindot", "kantot", "kantutan", "kantutin", "kantotan",
+      "tite", "titi", "burat", "pekpek", "puke", "puki",
+      "iyot", "iyutan", "jakol", "letse",
+
       // English
-      "fuck", "fucking", "fucker", "motherfucker", "shit", "bullshit", "bitch",
-      "bastard", "dick", "dickhead", "cock", "pussy", "asshole", "cunt", "slut",
-      "whore", "damn", "dumbass", "jackass", "asshat",
-      // Common profanity in other languages (not an exhaustive dictionary)
-      "mierda", "puta", "puto", "joder", "coño", "scheisse", "arschloch",
-      "merde", "salope", "con", "kurwa", "cholera", "blyat", "сука", "блядь",
-      "くそ", "ちくしょう", "씨발", "개새끼", "操你妈", "他妈的"
+      "fuck", "fucking", "fucker", "motherfucker",
+      "shit", "bullshit", "bitch", "bastard",
+      "dick", "dickhead", "cock", "pussy",
+      "asshole", "cunt", "slut", "whore",
+      "dumbass", "jackass", "asshat",
+
+      // Selected profanity in other languages
+      "mierda", "puta", "puto", "joder", "coño",
+      "scheisse", "arschloch", "merde", "salope",
+      "kurwa", "cholera", "blyat",
+      "сука", "блядь", "くそ", "ちくしょう",
+      "씨발", "개새끼", "操你妈", "他妈的"
     ];
+
     const reservedNames = new Set([
-      "owner", "developer", "dev", "mod", "moderator", "admin", "administrator",
-      "staff", "official", "system", "support", "root", "webmaster", "management",
-      "pbbowner", "pbbadmin", "pbbmoderator", "pbbdeveloper"
+      "owner", "developer", "dev", "mod", "moderator",
+      "admin", "administrator", "staff", "official",
+      "system", "support", "root", "webmaster",
+      "management", "pbbowner", "pbbadmin",
+      "pbbmoderator", "pbbdeveloper"
     ]);
 
-    function normalizeChatText(value) {
-      return value.toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "")
-        .replace(/[0]/g, "o").replace(/[1!|]/g, "i").replace(/3/g, "e")
-        .replace(/4/g, "a").replace(/5|\$/g, "s").replace(/7/g, "t")
+    function normalizeForMatching(value) {
+      return value.toLowerCase()
+        .normalize("NFKD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/0/g, "o")
+        .replace(/[1!|]/g, "i")
+        .replace(/3/g, "e")
+        .replace(/4/g, "a")
+        .replace(/5|\$/g, "s")
+        .replace(/7/g, "t");
+    }
+
+    function termToFlexibleRegex(term) {
+      const letters = normalizeForMatching(term)
         .replace(/[^a-z0-9\u0400-\u04ff\u3040-\u30ff\u3400-\u9fff\uac00-\ud7af]/g, "");
+
+      if (!letters) return null;
+
+      const alphabet = "a-z0-9\\u0400-\\u04ff\\u3040-\\u30ff\\u3400-\\u9fff\\uac00-\\ud7af";
+      const pattern = [...letters]
+        .map(ch => ch.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+        .join(`[^${alphabet}]*`);
+
+      return new RegExp(
+        `(^|[^${alphabet}])${pattern}($|[^${alphabet}])`,
+        "i"
+      );
     }
+
+    const blockedPatterns = blockedTerms
+      .map(termToFlexibleRegex)
+      .filter(Boolean);
+
     function containsBlockedLanguage(value) {
-      const normalized = normalizeChatText(value);
-      return blockedTerms.some(term => normalized.includes(normalizeChatText(term)));
+      const normalized = normalizeForMatching(value);
+      return blockedPatterns.some(pattern => pattern.test(normalized));
     }
+
     function isReservedName(value) {
-      const normalized = normalizeChatText(value);
-      return reservedNames.has(normalized) || [...reservedNames].some(role =>
-        normalized.startsWith(role) || normalized.endsWith(role));
+      const normalized = normalizeForMatching(value).replace(/[^a-z0-9]/g, "");
+
+      if (reservedNames.has(normalized)) return true;
+
+      // Block reserved role names followed by numbers, e.g. Owner123 or Admin01.
+      return [...reservedNames].some(role =>
+        normalized === role ||
+        new RegExp("^" + role + "[0-9]+$").test(normalized)
+      );
+    }
+
+    function addEmptyMessage() {
+      const empty = document.createElement("div");
+      empty.className = "chat-empty";
+      empty.id = "chatEmpty";
+      empty.innerHTML = "<span>✧</span><strong>It's quiet in the house.</strong><small>Start the conversation!</small>";
+      chatMessages.append(empty);
     }
 
     function addChatMessage(row) {
+      if (!row || !row.username || !row.message) return;
+
       const empty = document.getElementById("chatEmpty");
       if (empty) empty.remove();
 
       const wrap = document.createElement("article");
       wrap.className = "message" + (row.username === currentUsername ? " mine" : "");
+
       const meta = document.createElement("div");
       meta.className = "message-meta";
+
       const user = document.createElement("span");
       user.className = "message-user";
       user.textContent = row.username;
+
       const time = document.createElement("time");
       time.textContent = new Date(row.created_at).toLocaleTimeString("en-PH", {
-        timeZone: "Asia/Manila", hour: "2-digit", minute: "2-digit"
+        timeZone: "Asia/Manila",
+        hour: "2-digit",
+        minute: "2-digit"
       });
+
       meta.append(user, time);
+
       const bubble = document.createElement("div");
       bubble.className = "message-bubble";
       bubble.textContent = row.message;
+
       wrap.append(meta, bubble);
       chatMessages.append(wrap);
-      while (chatMessages.children.length > 100) chatMessages.firstElementChild.remove();
+
+      while (chatMessages.children.length > 100) {
+        chatMessages.firstElementChild.remove();
+      }
+
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
     async function loadRecentMessages() {
-      const { data, error } = await chatClient.from(CHAT_TABLE)
+      if (!chatClient) return;
+
+      const { data, error } = await chatClient
+        .from(CHAT_TABLE)
         .select("id,username,message,created_at")
-        .order("created_at", { ascending: false }).limit(50);
+        .order("created_at", { ascending: false })
+        .limit(50);
+
       if (error) {
-        showChatWarning("Chat could not load. Check your Supabase setup.");
+        showChatWarning("Chat could not load. Please check your Supabase setup.");
         return;
       }
+
       chatMessages.replaceChildren();
+
       if (!data || data.length === 0) {
-        const empty = document.createElement("div");
-        empty.className = "chat-empty";
-        empty.id = "chatEmpty";
-        empty.innerHTML = "<span>✧</span><strong>It's quiet in the house.</strong><small>Start the conversation!</small>";
-        chatMessages.append(empty);
+        addEmptyMessage();
       } else {
         data.reverse().forEach(addChatMessage);
       }
@@ -754,41 +804,65 @@
       const configured = window.supabase &&
         SUPABASE_URL.startsWith("https://") &&
         SUPABASE_ANON_KEY.startsWith("sb_publishable_");
+
       if (!configured) {
         chatConfigNotice.hidden = false;
         chatWelcome.hidden = false;
         return;
       }
-      chatClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+      chatClient = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+      );
+
       chatConfigNotice.hidden = true;
       chatWelcome.hidden = true;
       chatRoom.hidden = false;
+
       await loadRecentMessages();
-      chatClient.channel("pbb-house-chat")
+
+      // Avoid opening duplicate realtime subscriptions.
+      if (chatChannel) {
+        await chatClient.removeChannel(chatChannel);
+      }
+
+      chatChannel = chatClient
+        .channel("pbb-house-chat")
         .on("postgres_changes", {
-          event: "INSERT", schema: "public", table: CHAT_TABLE
-        }, payload => addChatMessage(payload.new))
+          event: "INSERT",
+          schema: "public",
+          table: CHAT_TABLE
+        }, payload => {
+          addChatMessage(payload.new);
+        })
         .subscribe();
-      // Refresh periodically so the hourly database purge also clears every
-      // already-open viewer's screen, even if DELETE events are not enabled.
-      setInterval(() => loadRecentMessages(), 60000);
+
+      // Refresh existing open chat windows after the hourly database cleanup.
+      if (chatRefreshInterval) clearInterval(chatRefreshInterval);
+      chatRefreshInterval = setInterval(loadRecentMessages, 60000);
     }
 
     usernameForm.addEventListener("submit", async event => {
       event.preventDefault();
+
       const name = usernameInput.value.trim();
+
       if (!/^[a-zA-Z0-9_]{3,20}$/.test(name)) {
-        showChatWarning("PST! Use 3–20 letters, numbers or underscores for your username.");
+        showChatWarning("Use 3–20 letters, numbers or underscores for your username.");
         return;
       }
+
       if (containsBlockedLanguage(name)) {
         showChatWarning("That username contains blocked language. Choose another name.");
         return;
       }
+
       if (isReservedName(name)) {
         showChatWarning("That name is reserved for site staff. Please choose another username.");
         return;
       }
+
       currentUsername = name;
       localStorage.setItem("pbbChatUsername", name);
       await activateChat();
@@ -814,57 +888,82 @@
       charCount.textContent = messageInput.value.length + "/400";
     });
 
+    function updateCooldownLabel() {
+      const label = document.getElementById("cooldownStatus");
+      const seconds = Math.max(
+        0,
+        Math.ceil((nextMessageAt - Date.now()) / 1000)
+      );
+
+      label.textContent = seconds
+        ? `Wait ${seconds}s before your next message · Chat resets hourly`
+        : "5-second send cooldown · Chat resets hourly";
+    }
+
     chatForm.addEventListener("submit", async event => {
       event.preventDefault();
+
       const message = messageInput.value.trim();
       if (!message) return;
+
+      // Only actual blocked terms as separate words are rejected.
       if (containsBlockedLanguage(message)) {
-        showChatWarning();
+        showChatWarning("That message contains prohibited language. Please rephrase it.");
         messageInput.select();
         return;
       }
+
       if (!chatClient || !currentUsername) {
-        showChatWarning("Chat is not connected yet. Finish the Supabase setup first.");
+        showChatWarning("Chat is not connected yet. Please reconnect.");
         return;
       }
+
       const remaining = nextMessageAt - Date.now();
+
       if (remaining > 0) {
         showChatWarning(`Please wait ${Math.ceil(remaining / 1000)} seconds before sending again.`);
         return;
       }
+
       const sendButton = chatForm.querySelector("button");
       sendButton.disabled = true;
-      const { error } = await chatClient.from(CHAT_TABLE).insert({
-        username: currentUsername,
-        message
-      });
-      sendButton.disabled = false;
-      if (error) {
-        const isModeration = /PST BAWAL YAN|prohibited language/i.test(error.message || "");
-        showChatWarning(isModeration
-          ? "PST BAWAL YAN! Please keep the chat respectful."
-          : "Message not sent. Please try again.");
-      } else {
-        nextMessageAt = Date.now() + MESSAGE_COOLDOWN_MS;
-        messageInput.value = "";
-        charCount.textContent = "0/400";
-        updateCooldownLabel();
-        if (cooldownInterval) clearInterval(cooldownInterval);
-        cooldownInterval = setInterval(() => {
-          updateCooldownLabel();
-          if (Date.now() >= nextMessageAt) {
-            clearInterval(cooldownInterval);
-            cooldownInterval = null;
-          }
-        }, 250);
-      }
-    });
 
-    function updateCooldownLabel() {
-      const label = document.getElementById("cooldownStatus");
-      const seconds = Math.max(0, Math.ceil((nextMessageAt - Date.now()) / 1000));
-      label.textContent = seconds ? `Wait ${seconds}s before your next message · Chat resets hourly` : "5-second send cooldown · Chat resets hourly";
-    }
+      const { error } = await chatClient
+        .from(CHAT_TABLE)
+        .insert({
+          username: currentUsername,
+          message
+        });
+
+      sendButton.disabled = false;
+
+      if (error) {
+        const isModeration =
+          /PST BAWAL YAN|prohibited language|blocked language/i.test(error.message || "");
+
+        showChatWarning(isModeration
+          ? "That message contains prohibited language. Please rephrase it."
+          : "Message not sent. Please try again.");
+
+        return;
+      }
+
+      nextMessageAt = Date.now() + MESSAGE_COOLDOWN_MS;
+      messageInput.value = "";
+      charCount.textContent = "0/400";
+      updateCooldownLabel();
+
+      if (cooldownInterval) clearInterval(cooldownInterval);
+
+      cooldownInterval = setInterval(() => {
+        updateCooldownLabel();
+
+        if (Date.now() >= nextMessageAt) {
+          clearInterval(cooldownInterval);
+          cooldownInterval = null;
+        }
+      }, 250);
+    });
 
     function updateClock() {
       const time = new Date().toLocaleString("en-PH", {
@@ -873,6 +972,7 @@
         dateStyle: "medium",
         timeStyle: "medium"
       });
+
       document.getElementById("clock").textContent = time + " PHT";
     }
 
