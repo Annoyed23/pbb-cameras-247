@@ -3,999 +3,307 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0b0b20">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111217">
 <title>PBB Cameras 24/7</title>
-
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
-
-:root {
-  --bg:#090b1c;
-  --panel:#12152e;
-  --panel2:#191d3d;
-  --purple:#9b7cff;
-  --purple2:#7048d9;
-  --blue:#45b9ff;
-  --cyan:#7de0ff;
-  --text:#f7f5ff;
-  --muted:#9298bc;
-  --border:rgba(159,145,255,.2);
-}
-
-* {box-sizing:border-box}
-
-body {
-  margin:0;
-  min-height:100vh;
-  color:var(--text);
-  font-family:'DM Sans',sans-serif;
-  background:
-    radial-gradient(ellipse at 10% 0%,rgba(112,72,217,.23),transparent 38%),
-    radial-gradient(ellipse at 90% 15%,rgba(40,151,255,.16),transparent 35%),
-    var(--bg);
-}
-
-button,select,input {font:inherit}
-
-.topbar {
-  position:sticky;
-  top:0;
-  z-index:10;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-  padding:17px clamp(16px,4vw,55px);
-  border-bottom:1px solid var(--border);
-  background:rgba(9,11,28,.9);
-  backdrop-filter:blur(18px);
-}
-
-.brand {
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.brand-icon {
-  width:43px;
-  height:43px;
-  display:grid;
-  place-items:center;
-  border-radius:14px;
-  font-size:21px;
-  background:linear-gradient(140deg,var(--purple),var(--blue));
-  box-shadow:0 7px 25px rgba(100,100,255,.3);
-}
-
-.brand-name {
-  font:700 17px 'Space Grotesk',sans-serif;
-  letter-spacing:.04em;
-}
-
-.brand-name span {
-  background:linear-gradient(90deg,#c4aaff,#6ddaff);
-  -webkit-background-clip:text;
-  color:transparent;
-}
-
-.brand-sub {
-  margin-top:4px;
-  color:var(--muted);
-  font-size:9px;
-  letter-spacing:.18em;
-}
-
-.live-badge {
-  display:flex;
-  align-items:center;
-  gap:8px;
-  color:#ff8fae;
-  font-size:10px;
-  font-weight:800;
-  letter-spacing:.12em;
-}
-
-.live-dot {
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:#ff557f;
-  box-shadow:0 0 12px #ff557f;
-}
-
-.container {
-  width:min(1450px,100%);
-  margin:auto;
-  padding:32px clamp(14px,3vw,42px);
-}
-
-.intro {
-  display:flex;
-  justify-content:space-between;
-  align-items:end;
-  gap:15px;
-  margin-bottom:23px;
-}
-
-.eyebrow {
-  color:var(--cyan);
-  font-size:10px;
-  font-weight:800;
-  letter-spacing:.2em;
-  margin-bottom:9px;
-}
-
-h1 {
-  margin:0;
-  font:700 clamp(25px,3vw,36px) 'Space Grotesk',sans-serif;
-}
-
-.intro p {
-  margin:8px 0 0;
-  color:var(--muted);
-  font-size:12px;
-}
-
-.channel-count {
-  color:#c8c4f7;
-  border:1px solid var(--border);
-  background:var(--panel);
-  padding:10px 13px;
-  border-radius:10px;
-  font-size:10px;
-  white-space:nowrap;
-}
-
-.channel-count strong {
-  color:var(--blue);
-  font-size:16px;
-}
-
-.dashboard {
-  display:grid;
-  grid-template-columns:220px minmax(0,1fr);
-  gap:18px;
-  align-items:start;
-}
-
-.sidebar,.player-card,.control-card {
-  border:1px solid var(--border);
-  background:linear-gradient(145deg,rgba(23,25,57,.97),rgba(12,15,36,.97));
-  box-shadow:0 20px 60px rgba(0,0,0,.25);
-}
-
-.sidebar {
-  padding:15px 11px;
-  border-radius:17px;
-}
-
-.side-heading {
-  padding:5px 9px 13px;
-  color:#a8a4d9;
-  font-size:9px;
-  font-weight:800;
-  letter-spacing:.16em;
-}
-
-.camera-list {
-  display:grid;
-  gap:7px;
-}
-
-.camera-btn {
-  width:100%;
-  min-height:65px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:10px;
-  border:1px solid transparent;
-  border-radius:11px;
-  color:#c4c6e4;
-  background:transparent;
-  text-align:left;
-  cursor:pointer;
-  transition:.2s;
-}
-
-.camera-btn:hover {
-  background:rgba(140,120,255,.1);
-}
-
-.camera-btn.active {
-  border-color:rgba(145,140,255,.4);
-  background:linear-gradient(110deg,rgba(123,75,220,.3),rgba(35,146,220,.17));
-  box-shadow:inset 3px 0 var(--purple);
-  color:white;
-}
-
-.cam-icon {
-  width:37px;
-  height:37px;
-  flex:0 0 auto;
-  display:grid;
-  place-items:center;
-  border-radius:10px;
-  background:#24264d;
-  font-size:17px;
-}
-
-.cam-info {min-width:0;flex:1}
-
-.cam-name {
-  display:block;
-  font-size:9px;
-  font-weight:800;
-  letter-spacing:.04em;
-}
-
-.cam-status {
-  display:block;
-  margin-top:6px;
-  color:#858bad;
-  font-size:8px;
-}
-
-.main {min-width:0}
-
-.toolbar {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-bottom:13px;
-}
-
-.view-buttons {
-  display:flex;
-  gap:7px;
-  flex-wrap:wrap;
-}
-
-.tool-btn {
-  padding:10px 13px;
-  border:1px solid var(--border);
-  border-radius:9px;
-  color:#dcd8ff;
-  background:var(--panel);
-  font-size:9px;
-  font-weight:800;
-  letter-spacing:.07em;
-  cursor:pointer;
-  transition:.2s;
-}
-
-.tool-btn:hover,.tool-btn.active {
-  border-color:#9b83ff;
-  background:linear-gradient(110deg,#7048d9,#247fc0);
-  color:white;
-}
-
-.player-card {
-  overflow:hidden;
-  border-radius:16px;
-}
-
-.player-top {
-  min-height:65px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  padding:14px 17px;
-  border-bottom:1px solid var(--border);
-  background:linear-gradient(100deg,rgba(112,72,217,.19),rgba(40,151,255,.12));
-}
-
-.player-title {
-  font:700 13px 'Space Grotesk',sans-serif;
-}
-
-.player-sub {
-  margin-top:5px;
-  color:var(--muted);
-  font-size:9px;
-}
-
-.source-tag {
-  padding:7px 9px;
-  border:1px solid rgba(69,185,255,.25);
-  border-radius:7px;
-  color:var(--cyan);
-  background:rgba(69,185,255,.08);
-  font-size:8px;
-  font-weight:800;
-}
-
-.video-screen {
-  position:relative;
-  width:100%;
-  aspect-ratio:16/9;
-  min-height:220px;
-  overflow:hidden;
-  background:#050716;
-}
-
-.video-screen iframe {
-  display:block;
-  width:100%;
-  height:100%;
-  border:0;
-}
-
-.video-screen .placeholder {
-  width:100%;
-  height:100%;
-  min-height:220px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  gap:9px;
-  padding:20px;
-  text-align:center;
-  background:
-    radial-gradient(ellipse,rgba(95,82,180,.19),transparent 60%),
-    #080b20;
-}
-
-.placeholder-icon {font-size:28px;color:#a58aff}
-.placeholder strong {font:700 13px 'Space Grotesk',sans-serif}
-.placeholder small {max-width:260px;color:var(--muted);font-size:10px;line-height:1.6}
-
-.video-grid {
-  display:none;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:10px;
-  padding:12px;
-  background:#080a1b;
-}
-
-.video-grid.show {display:grid}
-
-.grid-feed {
-  min-width:0;
-  overflow:hidden;
-  border:1px solid var(--border);
-  border-radius:12px;
-  background:#050716;
-}
-
-.grid-feed.selected {
-  border-color:#a78bfa;
-  box-shadow:0 0 0 1px rgba(167,139,250,.3);
-}
-
-.grid-feed-head {
-  min-height:37px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:5px;
-  padding:8px 10px;
-  background:linear-gradient(100deg,rgba(112,72,217,.25),rgba(40,151,255,.16));
-  font-size:9px;
-  font-weight:800;
-}
-
-.grid-feed-head button {
-  border:0;
-  color:#9bdcff;
-  background:transparent;
-  font-size:8px;
-  font-weight:800;
-  cursor:pointer;
-}
-
-.grid-video {
-  width:100%;
-  aspect-ratio:16/9;
-  background:#050716;
-}
-
-.grid-video iframe {
-  width:100%;
-  height:100%;
-  display:block;
-  border:0;
-}
-
-.grid-placeholder {
-  width:100%;
-  aspect-ratio:16/9;
-  display:grid;
-  place-items:center;
-  padding:12px;
-  color:#888eaf;
-  text-align:center;
-  font-size:10px;
-  line-height:1.5;
-}
-
-.controls {
-  display:flex;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:12px;
-  padding:14px 16px;
-  border-top:1px solid var(--border);
-  background:rgba(14,17,41,.9);
-}
-
-.control-group {
-  display:flex;
-  align-items:center;
-  gap:7px;
-}
-
-.control-label {
-  color:#a3a9ca;
-  font-size:9px;
-  font-weight:800;
-}
-
-.controls input[type="range"] {
-  width:95px;
-  accent-color:#9b7cff;
-  cursor:pointer;
-}
-
-.controls select {
-  max-width:115px;
-  padding:7px 8px;
-  border:1px solid var(--border);
-  border-radius:7px;
-  color:white;
-  background:#191d3d;
-  font-size:9px;
-  outline:none;
-}
-
-.control-button {
-  padding:8px 10px;
-  border:1px solid var(--border);
-  border-radius:8px;
-  color:#e4e1ff;
-  background:#1a1e41;
-  font-size:9px;
-  font-weight:800;
-  cursor:pointer;
-}
-
-.control-button:hover {
-  border-color:var(--purple);
-  background:#292452;
-}
-
-.control-message {
-  width:100%;
-  min-height:14px;
-  color:#9cabe0;
-  font-size:9px;
-  line-height:1.5;
-}
-
-.info-card {
-  margin-top:13px;
-  padding:15px 17px;
-  border:1px solid var(--border);
-  border-radius:13px;
-  background:rgba(20,23,52,.8);
-}
-
-.info-card strong {
-  display:block;
-  margin-bottom:6px;
-  color:#bdaaff;
-  font-size:9px;
-  letter-spacing:.13em;
-}
-
-.info-card p {
-  margin:0;
-  color:var(--muted);
-  font-size:10px;
-  line-height:1.7;
-}
-
-footer {
-  padding:25px 10px 5px;
-  color:#737a9f;
-  text-align:center;
-  font-size:9px;
-  line-height:1.8;
-}
-
-footer strong {color:#aaa5d9}
-
-@media(max-width:850px) {
-  .dashboard {grid-template-columns:1fr}
-  .camera-list {
-    display:flex;
-    overflow-x:auto;
-    padding-bottom:4px;
-  }
-  .camera-btn {min-width:175px}
-}
-
-@media(max-width:560px) {
-  .topbar {padding:12px 14px}
-  .brand-name {font-size:13px}
-  .brand-icon {width:38px;height:38px}
-  .container {padding:23px 12px}
-  .intro {align-items:flex-start}
-  .intro p {max-width:240px;line-height:1.5}
-  .channel-count {padding:8px;font-size:8px}
-  .video-grid {gap:6px;padding:7px}
-  .grid-feed-head {font-size:7px;padding:7px}
-  .grid-feed-head button {font-size:7px}
-  .controls {gap:10px;padding:12px}
-  .controls input[type="range"] {width:75px}
-  .video-screen {min-height:190px}
-}
-
-@media(max-width:380px) {
-  .video-grid {grid-template-columns:1fr}
+:root{color-scheme:dark;--bg:#101116;--panel:#171920;--line:#292d38;--muted:#9297a5;--red:#ed203c;--blue:#438cf5}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#f5f5f7;font-family:Arial,sans-serif}
+header{height:65px;padding:0 4%;display:flex;align-items:center;justify-content:space-between;background:#15171e;border-bottom:1px solid var(--line)}
+.brand{font-weight:900;letter-spacing:1px}.brand span{color:#8f83ff}
+.live{font-size:11px;font-weight:bold;color:#ff536b;letter-spacing:1px}
+.live i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#ff304d;margin-right:6px}
+main{max-width:1450px;margin:auto;padding:22px 20px}
+.heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.heading h1{font-size:19px;margin:0}.heading small{color:var(--muted)}
+.player{overflow:hidden;border:1px solid var(--line);border-radius:16px;background:#08090d}
+.player-screen{position:relative;width:100%;aspect-ratio:16/9;min-height:220px;overflow:hidden;background:#050609}
+.player-screen iframe{position:absolute;width:100%;height:100%;inset:0;border:0}
+.player-screen .placeholder{position:absolute;inset:0;display:grid;place-content:center;text-align:center;padding:20px;color:#aaa}
+.player-screen .placeholder strong{font-size:18px;color:#fff;margin-bottom:10px}
+.player-screen .placeholder p{font-size:12px;line-height:1.6;max-width:400px}
+.live-label{position:absolute;top:12px;left:12px;z-index:2;background:var(--red);padding:5px 11px;border-radius:20px;font-size:10px;font-weight:bold;pointer-events:none}
+.player-controls{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:12px;background:#15171e;border-top:1px solid var(--line)}
+.player-controls button,.player-controls select{height:38px;border:1px solid var(--line);border-radius:10px;background:#20232c;color:white;padding:0 12px;font-size:12px}
+.player-controls button{cursor:pointer}.player-controls button:hover,.camera-buttons button:hover{border-color:#777}
+.player-controls button:disabled{opacity:.4;cursor:not-allowed}
+.control-label{font-size:12px;color:#ddd;font-weight:bold}
+#zoomValue{font-size:12px;min-width:40px;text-align:center}
+.camera-buttons{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:13px}
+.camera-buttons button{min-height:46px;border:1px solid var(--line);border-radius:11px;background:#191c24;color:#e7e8ed;font-size:12px;font-weight:bold;cursor:pointer}
+.camera-buttons button.active{background:var(--red);border-color:var(--red);color:white}
+.four-grid{display:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:10px;background:#090a0e}
+.four-grid.show{display:grid}
+.four-tile{position:relative;aspect-ratio:16/9;overflow:hidden;background:#050609;border:1px solid #30333d;border-radius:9px}
+.four-tile iframe{width:100%;height:100%;border:0}
+.four-tile span{position:absolute;top:7px;left:8px;padding:5px 8px;background:#e51f3b;border-radius:5px;font-size:9px;font-weight:bold;pointer-events:none}
+.four-tile .placeholder{height:100%;display:grid;place-content:center;text-align:center;color:#a5a8b4;font-size:12px;padding:12px}
+.details{margin-top:13px;padding:15px 17px;border:1px solid var(--line);border-radius:13px;background:var(--panel)}
+.details strong{font-size:13px}.details p{font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:0}
+.chat{margin-top:14px;border:1px solid var(--line);border-radius:13px;background:var(--panel);overflow:hidden}
+.chat-head{padding:15px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}
+.chat-head strong{font-size:13px}.chat-head span{font-size:10px;color:#65d8a9}
+.chat-login,.chat-compose{display:flex;gap:8px;padding:12px}
+.chat input{flex:1;min-width:0;background:#0e1016;color:white;border:1px solid var(--line);border-radius:8px;padding:11px}
+.chat button{border:0;border-radius:8px;padding:0 14px;background:#6551c8;color:white;font-weight:bold;cursor:pointer}
+.messages{height:230px;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:9px}
+.msg{font-size:12px;overflow-wrap:anywhere}.msg b{color:#a99aff;margin-right:7px}.msg time{font-size:9px;color:#777;margin-left:7px}
+.chat-note{padding:0 12px 12px;color:#818797;font-size:10px}
+footer{text-align:center;padding:25px 10px;color:#777;font-size:10px;line-height:1.7}
+@media(max-width:600px){
+ main{padding:15px 10px}.heading h1{font-size:16px}
+ .player-screen{min-height:190px}
+ .player-controls{gap:6px;padding:9px}
+ .player-controls button,.player-controls select{height:35px;padding:0 9px;font-size:10px}
+ .control-label{font-size:10px}
+ .camera-buttons{grid-template-columns:repeat(2,1fr);gap:7px}
+ .camera-buttons button{font-size:11px}
+ .four-grid{gap:6px;padding:6px}
 }
 </style>
 </head>
-
 <body>
-
-<header class="topbar">
-  <div class="brand">
-    <div class="brand-icon">◈</div>
-    <div>
-      <div class="brand-name"><span>PBB CAMERAS</span> 24/7</div>
-      <div class="brand-sub">THE HOUSE NEVER SLEEPS</div>
-    </div>
-  </div>
-  <div class="live-badge"><span class="live-dot"></span> ON AIR</div>
+<header>
+  <div class="brand">PBB <span>CAMERAS</span> 24/7</div>
+  <div class="live"><i></i> LIVE</div>
 </header>
 
-<main class="container">
-
-  <section class="intro">
-    <div>
-      <div class="eyebrow">HOUSE CAMERA DASHBOARD</div>
-      <h1>Live Camera Access</h1>
-      <p>Watch the available house channels in one place.</p>
-    </div>
-    <div class="channel-count"><strong>02</strong> AVAILABLE FEEDS</div>
-  </section>
-
-  <div class="dashboard">
-
-    <aside class="sidebar">
-      <div class="side-heading">CAMERA CHANNELS</div>
-
-      <div class="camera-list">
-        <button class="camera-btn active" onclick="selectCamera(0)">
-          <span class="cam-icon">📺</span>
-          <span class="cam-info">
-            <span class="cam-name">MAIN LIVESTREAM</span>
-            <span class="cam-status">● YOUTUBE FEED</span>
-          </span>
-        </button>
-
-        <button class="camera-btn" onclick="selectCamera(1)">
-          <span class="cam-icon">🎥</span>
-          <span class="cam-info">
-            <span class="cam-name">ALL ACCESS</span>
-            <span class="cam-status">● iWANT PLAYER</span>
-          </span>
-        </button>
-
-        <button class="camera-btn" onclick="selectCamera(2)">
-          <span class="cam-icon">🍽️</span>
-          <span class="cam-info">
-            <span class="cam-name">DINING AREA</span>
-            <span class="cam-status">NOT CONNECTED</span>
-          </span>
-        </button>
-
-        <button class="camera-btn" onclick="selectCamera(3)">
-          <span class="cam-icon">🏠</span>
-          <span class="cam-info">
-            <span class="cam-name">EXTERNAL DEN</span>
-            <span class="cam-status">NOT CONNECTED</span>
-          </span>
-        </button>
-      </div>
-    </aside>
-
-    <section class="main">
-
-      <div class="toolbar">
-        <div class="view-buttons">
-          <button class="tool-btn active" id="singleBtn" onclick="setView('single')">▣ SINGLE SCREEN</button>
-          <button class="tool-btn" id="fourBtn" onclick="setView('four')">▦ 4 SCREEN</button>
-        </div>
-        <button class="tool-btn" onclick="toggleFullscreen()">⛶ FULLSCREEN</button>
-      </div>
-
-      <section class="player-card" id="playerCard">
-
-        <div class="player-top">
-          <div>
-            <div class="player-title" id="playerTitle">CAM 01 — MAIN LIVESTREAM</div>
-            <div class="player-sub" id="playerSubtitle">PRIMARY HOUSE CHANNEL</div>
-          </div>
-          <div class="source-tag" id="sourceTag">YOUTUBE</div>
-        </div>
-
-        <!-- SINGLE SCREEN -->
-        <div class="video-screen" id="singleScreen">
-          <div id="singlePlayer"></div>
-        </div>
-
-        <!-- FOUR SCREEN -->
-        <div class="video-grid" id="videoGrid">
-
-          <div class="grid-feed selected" id="gridFeed0">
-            <div class="grid-feed-head">
-              <span>01 · MAIN LIVESTREAM</span>
-              <button onclick="selectCamera(0)">SELECT</button>
-            </div>
-            <div class="grid-video" id="gridPlayer0"></div>
-          </div>
-
-          <div class="grid-feed" id="gridFeed1">
-            <div class="grid-feed-head">
-              <span>02 · ALL ACCESS</span>
-              <button onclick="selectCamera(1)">SELECT</button>
-            </div>
-            <div class="grid-video" id="gridPlayer1"></div>
-          </div>
-
-          <div class="grid-feed" id="gridFeed2">
-            <div class="grid-feed-head"><span>03 · DINING AREA</span></div>
-            <div class="grid-placeholder">Feed not connected yet</div>
-          </div>
-
-          <div class="grid-feed" id="gridFeed3">
-            <div class="grid-feed-head"><span>04 · EXTERNAL DEN</span></div>
-            <div class="grid-placeholder">Feed not connected yet</div>
-          </div>
-
-        </div>
-
-        <!-- PLAYER CONTROLS -->
-        <div class="controls">
-
-          <div class="control-group">
-            <span class="control-label">🔊 AUDIO</span>
-            <button class="control-button" id="muteBtn" onclick="toggleMute()">MUTE</button>
-            <input id="volumeSlider" type="range" min="0" max="100" value="80" oninput="changeVolume(this.value)" aria-label="Volume">
-          </div>
-
-          <div class="control-group">
-            <span class="control-label">QUALITY</span>
-            <select id="qualitySelect" onchange="changeQuality(this.value)">
-              <option value="auto">Auto</option>
-              <option value="hd1080">1080p</option>
-              <option value="hd720">720p</option>
-              <option value="large">480p</option>
-              <option value="medium">360p</option>
-            </select>
-          </div>
-
-          <div class="control-group">
-            <button class="control-button" onclick="pictureInPicture()">▣ PICTURE IN PICTURE</button>
-          </div>
-
-          <div class="control-message" id="controlMessage">
-            Select a camera to use its available player controls.
-          </div>
-
-        </div>
-      </section>
-
-      <div class="info-card">
-        <strong id="infoTitle">MAIN LIVESTREAM</strong>
-        <p id="infoDescription">
-          Main YouTube livestream. Select 4 SCREEN to view the available feeds together.
-        </p>
-      </div>
-
-    </section>
+<main>
+  <div class="heading">
+    <h1 id="heading">All Access</h1>
+    <small>HOUSE CAMERA VIEW</small>
   </div>
 
-  <footer>
-    <strong>PBB CAMERAS 24/7</strong> · INDEPENDENT FAN PROJECT<br>
-    Not affiliated with the official broadcaster. Video access depends on the original source and its permissions.
-  </footer>
+  <section class="player" id="player">
+    <div class="player-screen" id="screen">
+      <div class="live-label">● LIVE</div>
+      <iframe src="https://www.iwanttfc.com/content/09f9149f-acaa-42ca-a18f-5e2735f5de6a"
+        title="iWant All Access"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen></iframe>
+    </div>
 
+    <div class="four-grid" id="fourGrid">
+      <div class="four-tile">
+        <span>MAIN LIVESTREAM</span>
+        <iframe src="https://www.youtube.com/embed/vyeO-gDXezo"
+          title="Main Livestream" allowfullscreen></iframe>
+      </div>
+      <div class="four-tile">
+        <span>ALL ACCESS</span>
+        <iframe src="https://www.iwanttfc.com/content/09f9149f-acaa-42ca-a18f-5e2735f5de6a"
+          title="All Access" allowfullscreen></iframe>
+      </div>
+      <div class="four-tile">
+        <span>DINING AREA</span>
+        <div class="placeholder">DINING AREA<br>Feed not connected</div>
+      </div>
+      <div class="four-tile">
+        <span>EXTERNAL DEN</span>
+        <div class="placeholder">EXTERNAL DEN<br>Feed not connected</div>
+      </div>
+    </div>
+
+    <div class="player-controls">
+      <span class="control-label">Quality</span>
+      <select id="quality" title="Quality">
+        <option>Provider controlled</option>
+        <option>Auto quality (if supported)</option>
+      </select>
+      <span class="control-label">Zoom</span>
+      <button type="button" onclick="changeZoom(-.1)">−</button>
+      <span id="zoomValue">100%</span>
+      <button type="button" onclick="changeZoom(.1)">+</button>
+      <button type="button" onclick="resetZoom()">Reset</button>
+      <button type="button" id="fourButton" onclick="toggleFour()">▦ 4-view</button>
+      <button type="button" onclick="pictureInPicture()" title="PiP depends on the video provider">▣ PiP</button>
+      <button type="button" onclick="fullscreenPlayer()">⛶ Fullscreen</button>
+    </div>
+  </section>
+
+  <nav class="camera-buttons">
+    <button class="active" onclick="selectCamera(0)">All Access</button>
+    <button onclick="selectCamera(1)">External Den</button>
+    <button onclick="selectCamera(2)">Dining Area</button>
+    <button onclick="selectCamera(3)">PBB Collab 3.0 Live</button>
+  </nav>
+
+  <section class="details">
+    <strong id="detailTitle">All Access</strong>
+    <p id="description">Official iWant content page loaded inside the player, if embedding is permitted by iWant.</p>
+  </section>
+
+  <section class="chat">
+    <div class="chat-head">
+      <strong>✦ HOUSE CHAT</strong>
+      <span>● VIEWER CHAT</span>
+    </div>
+    <div class="chat-login" id="login">
+      <input id="username" maxlength="20" placeholder="Choose a username">
+      <button onclick="joinChat()">Join</button>
+    </div>
+    <div class="messages" id="messages"></div>
+    <form class="chat-compose" id="chatForm" hidden>
+      <input id="message" maxlength="400" placeholder="Say something..." autocomplete="off">
+      <button type="submit">Send</button>
+    </form>
+    <div class="chat-note" id="chatNote">Connect to the shared chat using the configured Supabase project.</div>
+  </section>
 </main>
 
-<script src="https://www.youtube.com/iframe_api"></script>
+<footer>
+  PBB CAMERAS 24/7 · INDEPENDENT FAN PROJECT<br>
+  Not affiliated with or endorsed by the official PBB broadcaster.
+</footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const MAIN_VIDEO_ID = "vyeO-gDXezo";
+const ALL_ACCESS = "https://www.iwanttfc.com/content/09f9149f-acaa-42ca-a18f-5e2735f5de6a";
+const MAIN = "https://www.youtube.com/embed/vyeO-gDXezo";
 
-const IWANT_URL =
-  "https://www.iwanttfc.com/player/09f9149f-acaa-42ca-a18f-5e2735f5de6a";
-
-const cameraData = [
-  {
-    title: "CAM 01 — MAIN LIVESTREAM",
-    name: "MAIN LIVESTREAM",
-    source: "YOUTUBE",
-    description: "Main YouTube livestream. Select 4 SCREEN to view the available feeds together.",
-    type: "youtube"
-  },
-  {
-    title: "CAM 02 — ALL ACCESS",
-    name: "ALL ACCESS",
-    source: "iWANT PLAYER",
-    description: "Official All Access player. If the player cannot load inside this dashboard, use the official player link.",
-    type: "iwant"
-  },
-  {
-    title: "CAM 03 — DINING AREA",
-    name: "DINING AREA",
-    source: "NOT CONNECTED",
-    description: "Waiting for an authorized video source.",
-    type: "empty"
-  },
-  {
-    title: "CAM 04 — EXTERNAL DEN",
-    name: "EXTERNAL DEN",
-    source: "NOT CONNECTED",
-    description: "Waiting for an authorized video source.",
-    type: "empty"
-  }
+const cameras = [
+  {name:"All Access",url:ALL_ACCESS,description:"Official iWant All Access content page. The provider must permit embedding for it to play here."},
+  {name:"External Den",url:null,description:"External Den feed has not been connected to an authorized source."},
+  {name:"Dining Area",url:null,description:"Dining Area feed has not been connected to an authorized source."},
+  {name:"PBB Collab 3.0 Live",url:MAIN,description:"Main public YouTube livestream."}
 ];
 
-let selectedCamera = 0;
-let currentView = "single";
-let youtubePlayers = {};
-let youtubeReady = false;
-let muted = false;
+let zoom=1;
+let currentCamera=0;
+let fourMode=false;
 
-function createIWantFrame(container) {
-  const iframe = document.createElement("iframe");
-  iframe.src = IWANT_URL;
-  iframe.title = "PBB All Access";
-  iframe.allow = "autoplay; fullscreen; encrypted-media; picture-in-picture";
-  iframe.allowFullscreen = true;
-  iframe.loading = "lazy";
-  container.replaceChildren(iframe);
+function makeFrame(url,title){
+  const frame=document.createElement("iframe");
+  frame.src=url;
+  frame.title=title;
+  frame.allow="autoplay; encrypted-media; picture-in-picture; fullscreen";
+  frame.allowFullscreen=true;
+  return frame;
 }
 
-function createYouTubePlayer(containerId, playerKey) {
-  if (!youtubeReady || youtubePlayers[playerKey]) return;
-
-  youtubePlayers[playerKey] = new YT.Player(containerId, {
-    width: "100%",
-    height: "100%",
-    videoId: MAIN_VIDEO_ID,
-    playerVars: {
-      autoplay: 0,
-      controls: 1,
-      playsinline: 1,
-      rel: 0,
-      enablejsapi: 1
-    },
-    events: {
-      onReady: function(event) {
-        event.target.setVolume(80);
-      }
-    }
-  });
-}
-
-function onYouTubeIframeAPIReady() {
-  youtubeReady = true;
-  createYouTubePlayer("singlePlayer", "single");
-  createYouTubePlayer("gridPlayer0", "grid");
-}
-
-window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
-
-function initializeAllAccess() {
-  createIWantFrame(document.getElementById("gridPlayer1"));
-}
-
-initializeAllAccess();
-
-function updateYouTubeLayout() {
-  if (!youtubeReady) return;
-
-  if (currentView === "single") {
-    if (selectedCamera === 0) {
-      createYouTubePlayer("singlePlayer", "single");
-    }
-  } else {
-    createYouTubePlayer("gridPlayer0", "grid");
-  }
-}
-
-function selectCamera(index) {
-  selectedCamera = index;
-  const cam = cameraData[index];
-
-  document.querySelectorAll(".camera-btn").forEach((button, i) => {
-    button.classList.toggle("active", i === index);
-  });
-
-  document.getElementById("playerTitle").textContent = cam.title;
-  document.getElementById("sourceTag").textContent = cam.source;
-  document.getElementById("infoTitle").textContent = cam.name;
-  document.getElementById("infoDescription").textContent = cam.description;
-
-  document.querySelectorAll(".grid-feed").forEach((feed, i) => {
-    feed.classList.toggle("selected", i === index);
-  });
-
-  if (currentView === "single") {
-    showSingleCamera(index);
-  }
-
-  updateControlAvailability();
-}
-
-function showSingleCamera(index) {
-  const screen = document.getElementById("singleScreen");
-  const player = document.getElementById("singlePlayer");
+function selectCamera(index){
+  currentCamera=index;
+  fourMode=false;
+  document.getElementById("fourGrid").classList.remove("show");
+  document.getElementById("screen").style.display="block";
+  document.getElementById("fourButton").textContent="▦ 4-view";
+  document.querySelectorAll(".camera-buttons button").forEach((b,i)=>b.classList.toggle("active",i===index));
+  document.getElementById("heading").textContent=cameras[index].name;
+  document.getElementById("detailTitle").textContent=cameras[index].name;
+  document.getElementById("description").textContent=cameras[index].description;
+  const screen=document.getElementById("screen");
   screen.replaceChildren();
-
-  if (index === 0) {
-    const holder = document.createElement("div");
-    holder.id = "singlePlayer";
-    screen.appendChild(holder);
-
-    youtubePlayers.single = null;
-    updateYouTubeLayout();
-  } else if (index === 1) {
-    const holder = document.createElement("div");
-    holder.id = "singleIWant";
-    holder.style.cssText = "width:100%;height:100%;";
-    screen.appendChild(holder);
-    createIWantFrame(holder);
-  } else {
-    const placeholder = document.createElement("div");
-    placeholder.className = "placeholder";
-    placeholder.innerHTML = `
-      <div class="placeholder-icon">⌁</div>
-      <strong>FEED NOT CONNECTED</strong>
-      <small>This camera is waiting for an authorized video source.</small>
-    `;
-    screen.appendChild(placeholder);
+  const badge=document.createElement("div");
+  badge.className="live-label";
+  badge.textContent="● LIVE";
+  screen.append(badge);
+  if(cameras[index].url){
+    screen.append(makeFrame(cameras[index].url,cameras[index].name));
+  }else{
+    const empty=document.createElement("div");
+    empty.className="placeholder";
+    empty.innerHTML="<strong>CAMERA FEED UNAVAILABLE</strong><p>This camera needs a publicly available or authorized video source.</p>";
+    screen.append(empty);
   }
+  resetZoom();
 }
 
-function setView(view) {
-  currentView = view;
-
-  const singleScreen = document.getElementById("singleScreen");
-  const grid = document.getElementById("videoGrid");
-
-  singleScreen.style.display = view === "single" ? "block" : "none";
-  grid.classList.toggle("show", view === "four");
-
-  document.getElementById("singleBtn").classList.toggle("active", view === "single");
-  document.getElementById("fourBtn").classList.toggle("active", view === "four");
-
-  if (view === "four") {
-    if (!document.getElementById("gridPlayer1").querySelector("iframe")) {
-      createIWantFrame(document.getElementById("gridPlayer1"));
-    }
-    updateYouTubeLayout();
-    document.getElementById("playerTitle").textContent = "FOUR SCREEN VIEW";
-    document.getElementById("sourceTag").textContent = "MULTI-CAMERA";
-    document.getElementById("infoTitle").textContent = "FOUR SCREEN MODE";
-    document.getElementById("infoDescription").textContent =
-      "The two available feeds are displayed together. Dining Area and External Den are waiting for authorized video sources.";
-  } else {
-    selectCamera(selectedCamera);
-  }
-
-  updateControlAvailability();
+function changeZoom(amount){
+  zoom=Math.min(1.6,Math.max(1,zoom+amount));
+  document.getElementById("zoomValue").textContent=Math.round(zoom*100)+"%";
+  const frame=document.querySelector("#screen iframe");
+  if(frame) frame.style.transform="scale("+zoom+")";
+}
+function resetZoom(){
+  zoom=1;
+  document.getElementById("zoomValue").textContent="100%";
+  const frame=document.querySelector("#screen iframe");
+  if(frame) frame.style.transform="scale(1)";
+}
+function toggleFour(){
+  fourMode=!fourMode;
+  document.getElementById("fourGrid").classList.toggle("show",fourMode);
+  document.getElementById("screen").style.display=fourMode?"none":"block";
+  document.getElementById("fourButton").textContent=fourMode?"▣ Single view":"▦ 4-view";
+}
+function fullscreenPlayer(){
+  const target=document.getElementById("player");
+  if(!document.fullscreenElement) target.requestFullscreen?.().catch(()=>{});
+  else document.exitFullscreen?.();
+}
+async function pictureInPicture(){
+  alert("Picture-in-picture depends on the embedded provider. Use the provider's own PiP control if it offers one.");
 }
 
-function getActiveYouTubePlayer() {
-  if (selectedCamera !== 0 && currentView === "single") return null;
+/* Shared viewer chat */
+const SUPABASE_URL="https://ttmhxbjycblppbzsadyp.supabase.co";
+const SUPABASE_KEY="sb_publishable_jn2f5CS9VbiTwTcYkeZd2g_mpaT2IJF";
+const TABLE="pbb_chat_messages";
+let db=null,user="";
 
-  const key = currentView === "four" ? "grid" : "single";
-  const player = youtubePlayers[key];
-
-  if (player && typeof player.setVolume === "function") return player;
-  return null;
+const blockedWords=[
+  "kantot","kantutan","kantutin","tite","titi","burat","pekpek","puke",
+  "puki","iyot","iyutan","jakol","fuck","fucking","fucker","motherfucker",
+  "shit","bullshit","bitch","bastard","dick","dickhead","cock","pussy",
+  "asshole","cunt","slut","whore","nigger","nigga"
+];
+function hasBadWord(value){
+  const words=value.toLowerCase().normalize("NFKC").match(/[\p{L}\p{N}]+/gu)||[];
+  return words.some(word=>blockedWords.includes(word));
 }
-
-function updateControlAvailability() {
-  const youtubeActive =
-    currentView === "four" || selectedCamera === 0;
-
-  document.getElementById("volumeSlider").disabled = !youtubeActive;
-  document.getElementById("qualitySelect").disabled = !youtubeActive;
-  document.getElementById("muteBtn").disabled = !youtubeActive;
-
-  if (!youtubeActive) {
-    document.getElementById("controlMessage").textContent =
-      "All Access uses its own player controls. Our custom audio and quality controls are available for YouTube.";
-  } else {
-    document.getElementById("controlMessage").textContent =
-      "YouTube controls selected. Available quality options depend on the video.";
-  }
+function addMessage(row){
+  const box=document.createElement("div");
+  box.className="msg";
+  const name=document.createElement("b");
+  name.textContent=row.username;
+  const body=document.createElement("span");
+  body.textContent=row.message;
+  const time=document.createElement("time");
+  time.textContent=new Date(row.created_at).toLocaleTimeString("en-PH",{timeZone:"Asia/Manila",hour:"2-digit",minute:"2-digit"});
+  box.append(name,body,time);
+  const messages=document.getElementById("messages");
+  messages.append(box);
+  messages.scrollTop=messages.scrollHeight;
 }
-
-function changeVolume(value) {
-  const player = getActiveYouTubePlayer();
-  if (!player) return;
-
-  player.setVolume(Number(value));
-
-  if (Number(value) > 0 && muted) {
-    player.unMute();
-    muted = false;
-    document.getElementById("muteBtn").textContent = "MUTE";
-  }
-}
-
-function toggleMute() {
-  const player = getActiveYouTubePlayer();
-  if (!player) return;
-
-  muted = !muted;
-
-  if (muted) {
-    player.mute();
-    document.getElementById("muteBtn").textContent = "UNMUTE";
-  } else {
-    player.unMute();
-    player.setVolume(Number(document.getElementById("volumeSlider").value));
-    document.getElementById("muteBtn").textContent = "MUTE";
-  }
-}
-
-function changeQuality(value) {
-  const player = getActiveYouTubePlayer();
-  if (!player) return;
-
-  if (value === "auto") {
-    player.setPlaybackQuality("default");
-  } else {
-    player.setPlaybackQuality(value);
-  }
-
-  document.getElementById("controlMessage").textContent =
-    "Quality request sent. YouTube may choose a different quality based on the connection and available stream.";
-}
-
-function pictureInPicture() {
-  const player = getActiveYouTubePlayer();
-
-  if (player) {
-    document.getElementById("controlMessage").textContent =
-      "Use the Picture-in-Picture option in the YouTube player's own controls. The browser controls this feature.";
+async function joinChat(){
+  const name=document.getElementById("username").value.trim();
+  if(!/^[a-zA-Z0-9_]{3,20}$/.test(name)||hasBadWord(name)){
+    alert("Please choose a valid username.");
     return;
   }
-
-  document.getElementById("controlMessage").textContent =
-    "Picture-in-Picture must be supported by the selected video provider. Try the provider's own player controls.";
-}
-
-function toggleFullscreen() {
-  const card = document.getElementById("playerCard");
-
-  if (!document.fullscreenElement) {
-    card.requestFullscreen?.().catch(() => {});
-  } else {
-    document.exitFullscreen?.();
+  user=name;
+  try{
+    db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+    const {data,error}=await db.from(TABLE).select("id,username,message,created_at").order("created_at",{ascending:false}).limit(50);
+    if(error) throw error;
+    document.getElementById("messages").replaceChildren();
+    (data||[]).reverse().forEach(addMessage);
+    document.getElementById("login").hidden=true;
+    document.getElementById("chatForm").hidden=false;
+    document.getElementById("chatNote").textContent="Chat connected. Please keep messages respectful.";
+    db.channel("pbb-house-chat").on("postgres_changes",{event:"INSERT",schema:"public",table:TABLE},payload=>addMessage(payload.new)).subscribe();
+  }catch(error){
+    alert("Chat connection failed. Check your Supabase table permissions and setup.");
+    console.error(error);
   }
 }
-
-// Load the All Access iframe as soon as the page opens.
-window.addEventListener("DOMContentLoaded", () => {
-  createIWantFrame(document.getElementById("gridPlayer1"));
-  updateControlAvailability();
+document.getElementById("chatForm").addEventListener("submit",async event=>{
+  event.preventDefault();
+  const input=document.getElementById("message");
+  const value=input.value.trim();
+  if(!value)return;
+  if(hasBadWord(value)){
+    alert("PST BAWAL YAN! Please keep the chat respectful.");
+    return;
+  }
+  const button=event.submitter;
+  if(button)button.disabled=true;
+  const {error}=await db.from(TABLE).insert({username:user,message:value});
+  if(button)button.disabled=false;
+  if(error)alert("Message not sent. Check your chat table or moderation rules.");
+  else input.value="";
 });
 </script>
-
 </body>
 </html>
