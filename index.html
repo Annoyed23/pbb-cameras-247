@@ -95,8 +95,6 @@ h1{margin:0;font:700 clamp(25px,3vw,36px)/1.08 "Space Grotesk",sans-serif;letter
 .broadcast-name span{color:#6fd7ff;font-size:13px;}
 .fullscreen-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 12px;border:1px solid rgba(151,139,255,.35);border-radius:8px;color:#e6e2ff;background:rgba(124,58,237,.15);font-size:9px;font-weight:800;letter-spacing:.08em;cursor:pointer;transition:.2s;}
 .fullscreen-btn:hover{background:rgba(124,58,237,.3);border-color:#9b83ff;}
-.official-link{color:#8edcff;text-decoration:none;font-size:9px;font-weight:800;letter-spacing:.05em;}
-.official-link:hover{text-decoration:underline;}
 .detail-card{display:grid;grid-template-columns:1fr auto;align-items:center;gap:18px;margin-top:15px;padding:17px 19px;border-radius:15px;box-shadow:none;}
 .detail-label{color:#9d91e8;font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;}
 .detail-card h2{margin:7px 0 5px;font:700 13px "Space Grotesk",sans-serif;}
@@ -160,7 +158,7 @@ footer strong{color:#9298bd;font-weight:700;}
 @media (max-width:850px){.dashboard{grid-template-columns:1fr;}.sidebar{padding:14px;}.camera-list{display:flex;overflow-x:auto;gap:8px;padding-bottom:3px;scrollbar-width:thin;}.camera-btn{min-width:190px;flex:0 0 auto;}.side-heading{padding-bottom:11px;}}
 @media (max-width:560px){.topbar{min-height:70px;padding:12px 14px;gap:10px;}.brand-mark{width:38px;height:38px;border-radius:12px;}.brand-name{font-size:13px;}.brand-tag{font-size:8px;letter-spacing:.14em;}.topbar-right{gap:9px;flex-direction:column;align-items:flex-end;}.live-pill{padding:6px 9px;font-size:8px;}#clock{font-size:9px;}.shell{padding:25px 12px 18px;}.intro{align-items:flex-start;margin-bottom:18px;}.intro-copy{max-width:245px;font-size:11px;line-height:1.5;}.channel-count{padding:8px 9px;font-size:9px;}.channel-count strong{font-size:12px;}.sidebar{border-radius:15px;}.camera-btn{min-width:168px;min-height:62px;padding:9px;}.cam-icon{width:34px;height:34px;}.player-card{border-radius:15px;}.player-top{min-height:67px;padding:13px 14px;}.player-title{font-size:12px;}.player-subtitle{font-size:9px;}.source-tag{padding:6px 7px;font-size:8px;}.video-screen{min-height:190px;}.player-bottom{padding:11px 12px;font-size:9px;}.fullscreen-btn{padding:8px 9px;font-size:8px;}.detail-card{padding:14px;gap:10px;}.detail-card p{font-size:10px;}.detail-mark{width:37px;height:37px;}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto !important;animation-duration:.01ms !important;transition-duration:.01ms !important;}}
-/* CCTV MONITOR REDESIGN */
+/* CCTV MONITOR */
 .player-card{border:1px solid rgba(111,220,255,.28);border-radius:13px;background:#070b12;box-shadow:0 0 0 5px rgba(5,9,16,.92),0 0 0 6px rgba(104,190,220,.18),0 22px 65px rgba(0,0,0,.58),inset 0 1px 0 rgba(255,255,255,.04)}
 .player-top{min-height:64px;padding:13px 17px;background:linear-gradient(180deg,#111b25,#0a111a);border-bottom:1px solid rgba(105,196,220,.2)}
 .player-title{font:700 12px "Space Grotesk",sans-serif;letter-spacing:.13em;color:#d9f5ff}
@@ -188,6 +186,10 @@ footer strong{color:#9298bd;font-weight:700;}
 .player-bottom{background:#080e14;border-top:1px solid rgba(105,196,220,.2);color:#829ca8}
 .fullscreen-btn{border-radius:3px;border-color:rgba(117,188,208,.3);color:#d9edf2;background:#101c25}
 @media(max-width:560px){.video-screen{border-width:4px}.cctv-overlay{padding:8px;font-size:8px}.cctv-crosshair{display:none}}
+/* ALL ACCESS: keep provider player full-size without adding our own logo/card */
+.yt-embed-holder.provider-iframe{touch-action:pan-y;}
+.yt-embed-holder.provider-iframe iframe{left:0;width:100%;height:100%;pointer-events:auto;}
+.yt-embed-holder.provider-iframe.is-zoomed iframe{pointer-events:none;}
 </style>
 </head>
 <body>
@@ -289,10 +291,7 @@ allowfullscreen loading="eager"></iframe>
 
 <div class="player-bottom">
 <div class="broadcast-name"><span>◉</span><span id="footerName">MAIN HOUSE BROADCAST</span></div>
-<div style="display:flex;align-items:center;gap:12px;">
-<a class="official-link" id="officialPlayerLink" href="https://www.iwanttfc.com/player/09f9149f-acaa-42ca-a18f-5e2735f5de6a" target="_blank" rel="noopener noreferrer" hidden>OPEN OFFICIAL PLAYER ↗</a>
 <button class="fullscreen-btn" type="button" onclick="fullscreenPlayer()">⛶ FULLSCREEN</button>
-</div>
 </div>
 </section>
 
@@ -399,10 +398,10 @@ url:"https://www.youtube.com/embed/vyeO-gDXezo"
 {
 name:"ALL ACCESS",
 label:"CAM 02 — ALL ACCESS",
-status:"● IWANTTFC PLAYER",
+status:"● IWANTTFC",
 footer:"ALL ACCESS CHANNEL",
 detail:"All Access channel",
-description:"Official iWantTFC All Access player. If the player cannot be embedded here, use the Open Official Player link below.",
+description:"Official iWantTFC All Access player. Playback and access are controlled by the provider.",
 type:"iframe",
 url:IWANTTFC_URL
 },
@@ -509,14 +508,11 @@ console.warn("YouTube player initialization failed.", error);
 
 function togglePlayback() {
 if (cameras[currentCameraIndex]?.type !== "youtube") return;
-
 if (!ytPlayerReady || !ytPlayer || !window.YT) {
 attachYouTubePlayer();
 return;
 }
-
 const state = ytPlayer.getPlayerState();
-
 if (state === YT.PlayerState.PLAYING || state === YT.PlayerState.BUFFERING) {
 ytPlayer.pauseVideo();
 updatePlaybackButton(false);
@@ -530,11 +526,9 @@ function applyZoom() {
 const holder = document.getElementById("ytEmbedHolder");
 const frame = holder?.querySelector("iframe");
 if (!holder || !frame) return;
-
 const scale = zoomLevel / 100;
 holder.classList.toggle("is-zoomed", zoomLevel > 100);
 frame.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
-
 const zoomDisplay = document.getElementById("zoomValue");
 if (zoomDisplay) zoomDisplay.textContent = zoomLevel + "%";
 }
@@ -548,12 +542,10 @@ applyZoom();
 function setupVideoDragging() {
 const holder = document.getElementById("ytEmbedHolder");
 if (!holder || holder.dataset.dragReady === "true") return;
-
 holder.dataset.dragReady = "true";
 
 holder.addEventListener("pointerdown", event => {
 if (zoomLevel <= 100) return;
-
 dragState = {
 x:event.clientX,
 y:event.clientY,
@@ -561,7 +553,6 @@ startX:panX,
 startY:panY,
 pointerId:event.pointerId
 };
-
 holder.classList.add("is-dragging");
 holder.setPointerCapture?.(event.pointerId);
 event.preventDefault();
@@ -569,14 +560,11 @@ event.preventDefault();
 
 holder.addEventListener("pointermove", event => {
 if (!dragState || dragState.pointerId !== event.pointerId) return;
-
 const scale = zoomLevel / 100;
 const maxX = holder.clientWidth * (scale - 1) / 2;
 const maxY = holder.clientHeight * (scale - 1) / 2;
-
 panX = Math.max(-maxX, Math.min(maxX, dragState.startX + event.clientX - dragState.x));
 panY = Math.max(-maxY, Math.min(maxY, dragState.startY + event.clientY - dragState.y));
-
 applyZoom();
 });
 
@@ -584,20 +572,17 @@ const stopDrag = () => {
 dragState = null;
 holder.classList.remove("is-dragging");
 };
-
 holder.addEventListener("pointerup", stopDrag);
 holder.addEventListener("pointercancel", stopDrag);
 holder.addEventListener("lostpointercapture", stopDrag);
 }
 
 function setPlayerVolume(value) {
+if (cameras[currentCameraIndex]?.type !== "youtube") return;
 playerVolume = Math.max(0, Math.min(100, Number(value) || 0));
-
 document.getElementById("volumeValue").textContent = playerVolume + "%";
-
 if (ytPlayerReady && ytPlayer) {
 ytPlayer.setVolume(playerVolume);
-
 if (playerVolume > 0) {
 playerMuted = false;
 ytPlayer.unMute();
@@ -608,22 +593,18 @@ ytPlayer.mute();
 } else {
 playerMuted = playerVolume === 0;
 }
-
 updateMuteButton();
 }
 
 function toggleMute() {
 if (cameras[currentCameraIndex]?.type !== "youtube") return;
-
 if (playerMuted) {
 if (playerVolume === 0) {
 playerVolume = 70;
 document.getElementById("volumeSlider").value = "70";
 document.getElementById("volumeValue").textContent = "70%";
 }
-
 playerMuted = false;
-
 if (ytPlayerReady && ytPlayer) {
 ytPlayer.setVolume(playerVolume);
 ytPlayer.unMute();
@@ -632,7 +613,6 @@ ytPlayer.unMute();
 playerMuted = true;
 if (ytPlayerReady && ytPlayer) ytPlayer.mute();
 }
-
 updateMuteButton();
 }
 
@@ -644,7 +624,6 @@ cameras[currentCameraIndex]?.type !== "youtube" ||
 !ytPlayer.setPlaybackQuality ||
 value === "default"
 ) return;
-
 ytPlayer.setPlaybackQuality(value);
 }
 
@@ -653,7 +632,6 @@ const overlay = document.createElement("div");
 overlay.className = "cctv-overlay";
 overlay.id = "cctvOverlay";
 overlay.setAttribute("aria-hidden", "true");
-
 overlay.innerHTML = `
 <div class="cctv-topline">
 <span class="cctv-rec"><i></i> REC</span>
@@ -666,17 +644,13 @@ overlay.innerHTML = `
 <span class="cctv-foot-tag">PBB HOUSE / LIVE MONITOR</span>
 <span class="cctv-time" id="cctvTimestamp">--/--/---- --:--:-- PHT</span>
 </div>`;
-
 screen.appendChild(overlay);
 }
 
 function createCameraFrame(cam, index, fourScreen = false) {
 const holder = document.createElement("div");
 holder.className = "yt-embed-holder";
-
-if (cam.type === "iframe") {
-holder.classList.add("provider-iframe");
-}
+if (cam.type === "iframe") holder.classList.add("provider-iframe");
 
 const iframe = document.createElement("iframe");
 iframe.title = cam.label;
@@ -689,14 +663,12 @@ if (cam.type === "youtube") {
 const params = fourScreen
 ? "autoplay=1&mute=1&playsinline=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3"
 : "enablejsapi=1&autoplay=1&mute=1&playsinline=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3";
-
 iframe.id = fourScreen ? "" : "pbbYouTubeFrame";
 iframe.src = cam.url + "?" + params;
 iframe.allow = "autoplay; encrypted-media; picture-in-picture";
 } else {
 iframe.src = cam.url;
 }
-
 holder.appendChild(iframe);
 return holder;
 }
@@ -704,7 +676,6 @@ return holder;
 function renderFourScreenTile(cam, index) {
 const tile = document.createElement("div");
 tile.className = "four-tile";
-
 const label = document.createElement("div");
 label.className = "four-tile-label";
 label.textContent = cam.label;
@@ -721,14 +692,12 @@ tile.appendChild(offline);
 } else {
 tile.appendChild(createCameraFrame(cam, index, true));
 }
-
 return tile;
 }
 
 function toggleFourScreen() {
 const screen = document.getElementById("videoScreen");
 const button = document.getElementById("fourScreenButton");
-
 fourScreenActive = !fourScreenActive;
 
 if (!fourScreenActive) {
@@ -740,25 +709,19 @@ return;
 destroyYouTubePlayer();
 setYouTubeControlsEnabled(false);
 updatePlaybackButton(false);
-
 button.textContent = "▣ SINGLE SCREEN";
 screen.classList.add("four-mode");
 screen.replaceChildren();
 
 const grid = document.createElement("div");
 grid.className = "four-screen-grid";
-
-cameras.forEach((cam, index) => {
-grid.appendChild(renderFourScreenTile(cam, index));
-});
-
+cameras.forEach((cam, index) => grid.appendChild(renderFourScreenTile(cam, index)));
 screen.appendChild(grid);
 }
 
 function selectCamera(index) {
 const cam = cameras[index];
 if (!cam) return;
-
 currentCameraIndex = index;
 
 if (fourScreenActive) {
@@ -775,21 +738,15 @@ button.setAttribute("aria-pressed", String(active));
 document.getElementById("playerTitle").textContent = cam.label;
 document.getElementById("playerLabel").textContent =
 cam.type === "youtube" ? "LATEST AVAILABLE VIDEO" :
-cam.type === "iframe" ? "OFFICIAL IWANTTFC PLAYER" :
+cam.type === "iframe" ? "ALL ACCESS CHANNEL" :
 "TEMPORARILY UNAVAILABLE";
-
 document.getElementById("playerStatus").textContent = cam.status;
 document.getElementById("footerName").textContent = cam.footer;
 document.getElementById("detailTitle").textContent = cam.detail;
 document.getElementById("cameraDescription").textContent = cam.description;
 
-const officialLink = document.getElementById("officialPlayerLink");
-officialLink.hidden = cam.type !== "iframe";
-
 const screen = document.getElementById("videoScreen");
-
 destroyYouTubePlayer();
-
 screen.classList.remove("four-mode");
 screen.replaceChildren();
 
@@ -804,19 +761,18 @@ const holder = createCameraFrame(cam, index, false);
 holder.id = "ytEmbedHolder";
 screen.appendChild(holder);
 
-addCctvOverlay(screen, index);
-
-setYouTubeControlsEnabled(cam.type === "youtube");
-
 if (cam.type === "youtube") {
+addCctvOverlay(screen, index);
+setYouTubeControlsEnabled(true);
 playerMuted = true;
 updateMuteButton();
 updatePlaybackButton(false);
 attachYouTubePlayer();
 } else {
+/* Keep the provider's own interface intact; no extra overlay or logo is added. */
+setYouTubeControlsEnabled(false);
 updatePlaybackButton(false);
 }
-
 setupVideoDragging();
 applyZoom();
 } else {
@@ -826,7 +782,6 @@ offline.innerHTML = `
 <div class="offline-icon">⌁</div>
 <h3>CAMERA FEED UNAVAILABLE</h3>
 <p>CAM ${String(index + 1).padStart(2, "0")}<br>Waiting for a publicly available or authorized stream.</p>`;
-
 screen.appendChild(offline);
 setYouTubeControlsEnabled(false);
 updatePlaybackButton(false);
@@ -835,7 +790,6 @@ updatePlaybackButton(false);
 
 function fullscreenPlayer() {
 const player = document.querySelector(".player-card");
-
 if (!document.fullscreenElement) {
 player.requestFullscreen?.().catch(() => {});
 } else {
@@ -926,7 +880,6 @@ function addChatMessage(row) {
 const messageId = row && row.id != null
 ? String(row.id)
 : `${row?.created_at || ""}|${row?.username || ""}|${row?.message || ""}`;
-
 if (seenMessageIds.has(messageId)) return;
 seenMessageIds.add(messageId);
 
@@ -939,24 +892,20 @@ wrap.dataset.messageId = messageId;
 
 const meta = document.createElement("div");
 meta.className = "message-meta";
-
 const user = document.createElement("span");
 user.className = "message-user";
 user.textContent = row.username;
-
 const time = document.createElement("time");
 time.textContent = new Date(row.created_at).toLocaleTimeString("en-PH", {
 timeZone: "Asia/Manila",
 hour: "2-digit",
 minute: "2-digit"
 });
-
 meta.append(user, time);
 
 const bubble = document.createElement("div");
 bubble.className = "message-bubble";
 bubble.textContent = row.message;
-
 wrap.append(meta, bubble);
 chatMessages.append(wrap);
 
@@ -965,7 +914,6 @@ const oldest = chatMessages.firstElementChild;
 if (oldest?.dataset?.messageId) seenMessageIds.delete(oldest.dataset.messageId);
 oldest?.remove();
 }
-
 chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
@@ -997,7 +945,6 @@ data.slice().reverse().forEach(addChatMessage);
 
 async function activateChat() {
 if (chatActivationPromise) return chatActivationPromise;
-
 chatActivationPromise = (async () => {
 const configured = window.supabase &&
 SUPABASE_URL.startsWith("https://") &&
@@ -1012,7 +959,6 @@ return;
 if (!chatClient) {
 chatClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 }
-
 chatConfigNotice.hidden = true;
 chatWelcome.hidden = true;
 chatRoom.hidden = false;
@@ -1026,7 +972,6 @@ table: CHAT_TABLE
 }, payload => addChatMessage(payload.new))
 .subscribe();
 }
-
 await loadRecentMessages();
 
 if (!chatRefreshTimer) {
@@ -1043,24 +988,20 @@ chatActivationPromise = null;
 
 usernameForm.addEventListener("submit", async event => {
 event.preventDefault();
-
 const name = usernameInput.value.trim();
 
 if (!/^[a-zA-Z0-9_]{3,20}$/.test(name)) {
 showChatWarning("PST! Use 3–20 letters, numbers or underscores for your username.");
 return;
 }
-
 if (containsBlockedLanguage(name)) {
 showChatWarning("That username contains blocked language. Choose another name.");
 return;
 }
-
 if (isReservedName(name)) {
 showChatWarning("That name is reserved for site staff. Please choose another username.");
 return;
 }
-
 currentUsername = name;
 localStorage.setItem("pbbChatUsername", name);
 await activateChat();
@@ -1088,7 +1029,6 @@ charCount.textContent = messageInput.value.length + "/400";
 
 chatForm.addEventListener("submit", async event => {
 event.preventDefault();
-
 const message = messageInput.value.trim();
 if (!message || isSendingMessage) return;
 
@@ -1097,14 +1037,12 @@ showChatWarning();
 messageInput.select();
 return;
 }
-
 if (!chatClient || !currentUsername) {
 showChatWarning("Chat is not connected yet. Finish the Supabase setup first.");
 return;
 }
 
 const remaining = nextMessageAt - Date.now();
-
 if (remaining > 0) {
 showChatWarning(`Please wait ${Math.ceil(remaining / 1000)} seconds before sending again.`);
 return;
@@ -1113,7 +1051,6 @@ return;
 const sendButton = chatForm.querySelector("button");
 isSendingMessage = true;
 sendButton.disabled = true;
-
 let error = null;
 
 try {
@@ -1141,10 +1078,8 @@ charCount.textContent = "0/400";
 updateCooldownLabel();
 
 if (cooldownInterval) clearInterval(cooldownInterval);
-
 cooldownInterval = setInterval(() => {
 updateCooldownLabel();
-
 if (Date.now() >= nextMessageAt) {
 clearInterval(cooldownInterval);
 cooldownInterval = null;
@@ -1156,7 +1091,6 @@ cooldownInterval = null;
 function updateCooldownLabel() {
 const label = document.getElementById("cooldownStatus");
 const seconds = Math.max(0, Math.ceil((nextMessageAt - Date.now()) / 1000));
-
 label.textContent = seconds
 ? `Wait ${seconds}s before your next message · Chat resets hourly`
 : "5-second send cooldown · Chat resets hourly";
@@ -1169,11 +1103,9 @@ hour12: true,
 dateStyle: "medium",
 timeStyle: "medium"
 });
-
 document.getElementById("clock").textContent = time + " PHT";
 
 const cctvTime = document.getElementById("cctvTimestamp");
-
 if (cctvTime) {
 cctvTime.textContent = new Date().toLocaleString("en-PH", {
 timeZone:"Asia/Manila",
